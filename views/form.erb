@@ -1,0 +1,70 @@
+<section class="row section">
+	<div class="row-content ">
+		<div class="section-title"><h2>Build Theme</h2></div>	
+		<div class="column full">
+			<form class="build-form contact-section" method="post" action="/form">
+
+				<div class="question">
+					<label>What is your themes name?</label>
+					<input class="name plain buffer" type="text" name="theme_name">
+				</div>
+
+				<div class="question">
+					<label>What is the theme author name?</label>
+					<input class="name plain buffer" type="text" name="author_name">
+				</div>
+						
+				<div class="question">
+					<label>What is the theme authors URL?</label>
+					<input class="name plain buffer" type="text" name="url">
+				</div>
+
+				<div class="question">
+					<label>What should the prefix for your project be?</label>
+					<input class="name plain buffer" type="text" name="prefix">
+				</div>
+						
+				<div class="question full">
+					<label>Please list your themes description</label>
+					<textarea class="plain" name="description"></textarea>
+				</div>
+						
+				<div class="question">
+					<label>Will this theme need language support?</label>
+					<div class="radio">
+						<input type="radio" name="language_support" value="yes">Yes
+						<input type="radio" name="language_support" value="no">No
+					</div>
+				</div>
+
+				<!-- <div class="question">
+					<label>Will you need a custom post type for this theme?</label>
+					<div class="radio">
+						<input type="radio" name="custom_post_types" value="Yes">Yes
+						<input type="radio" name="custom_post_types" value="No">No
+					</div>
+				</div> -->
+
+				<div class="question">						
+					<label>Would you like to use SASS with this theme?</label>
+					<div class="radio">
+						<input id="sass-yes" type="radio" name="sass" value="yes">Yes
+						<input type="radio" name="sass" value="no">No
+					</div>
+				</div>
+
+				<div id="compass" class="question compass">
+					<label>Would you like to use Compass?</label>
+					<div class="radio">
+						<input type="radio" name="compass" value="yes">Yes
+						<input type="radio" name="compass" value="no">No
+					</div>
+				</div>
+
+				<input id="send" class="plain button red" type="submit" value="Download Now">
+							
+			</form>	
+			<div id="success"></div>
+		</div>
+	</div>
+</section>	
