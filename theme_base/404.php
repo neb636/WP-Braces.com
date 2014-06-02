@@ -3,9 +3,9 @@
  * The template for displaying 404 pages (Not Found).
  *
  * @package WordPress
- * @subpackage {%= title %}
+ * @subpackage {%= title_capitalize %}
  * @author {%= author %}
- * @link http://www.oomphinc.com
+ * @link {%= author_uri %}
  */
 
 get_header(); ?>

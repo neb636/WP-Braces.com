@@ -5,7 +5,7 @@
  * Displays all of the <head> section and everything up till <div id="content">
  *
  * @package WordPress
- * @subpackage {%= title %}
+ * @subpackage {%= title_capitalize %}
  * @author {%= author %}
  * @link {%= author_uri %}
  */

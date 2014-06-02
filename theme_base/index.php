@@ -9,7 +9,7 @@
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
- * @subpackage {%= title %}
+ * @subpackage {%= title_capitalize %}
  * @author {%= author %}
  * @link {%= author_uri %}
  */

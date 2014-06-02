@@ -1,321 +1,124 @@
-/*
- * Theme Imports
- * --------------------------------------------------------------------------------- //
- This is the master theme.scss file for the Base Theme, which contains an annotated
- list of @import functions which comprise the separate stylesheets which make up
- specific parts of the theme.
- * --------------------------------------------------------------------------------- */
-/*
- * Theme Modules
- * --------------------------------------------------------------------------------- //
- Modules, designated with an underscore prefix, don't generate any CSS output
- themselves but instead contain mixins and definte base variables used by other
- stylesheets.
- * --------------------------------------------------------------------------------- */
-/*
- * @bendoh
- * --------------------------------------------------------------------------------- //
- Front-end people! Start here! Put only references to other SASS stylesheets in here.
- Please keep this organized.
- Reset happens in main style.css, as per _s
- The user-configurable styles are generated in inc/customizer.php
- * --------------------------------------------------------------------------------- */
-/*
- * @johncionci
- * --------------------------------------------------------------------------------- //
- Overall css philosophies here are:
- # font size uses rems
- # margins & padding uses rems
- # widths uses %
- # minimal use of line heights
- # use inline media queries
- # use of inline IE styles
- * --------------------------------------------------------------------------------- */
-/* --- Import the Compass Library - compass-style.org/reference/ --- */
-/* @import "compass"; */
-/* --- Import the Bourbon Library - bourbon.io --- */
-/* @import "bourbon"; */
-/* --- CSS preprocess logic --- */
 /**
- * @file Preprocess Variables
- * ------------------------------------------------------------------------------- */
-/**
- * =Table of Contents
- *
- * configuration variables
- * base font variables
- * base color variables
- *
- * ------------------------------------------------------------------------------- */
-/* --- Configuration Variables --------------------------------------------------- */
-/* --- Base Font Variables ------------------------------------------------------- */
-/* --- Base Color Variables ------------------------------------------------------ */
-/*
- * REM Mixin for all things!
- * @link https://gist.github.com//larrybotha/4153104
- * @usage @include rem(margin, 0, auto, 2.4, 0);
- * --------------------------------------------------------------------------------- */
-/**
- * @file Preprocess Mixins
- * Base Mixins
- * @link krasimirtsonev.com/blog/article/SASS-mixins-extends-and-placeholders-differences-use-cases
- * ------------------------------------------------------------------------------- */
-/**
- * =Table of Contents
- *
- * @mixin clearfix
- * @mixin screenreaders
- * @mixin zero
- * @mixin zero-list
- * @mixin text-decoration
- * @mixin gradient
- * @mixin border-radius
- * @mixin mq
- *
- * ------------------------------------------------------------------------------- */
-/*
- * Clearfix
- * @link http://nicolasgallagher.com/micro-clearfix-hack/
+ * Root Elements
  */
-/*
- * Screen Readers
- * Hide the screen reader text, but style it on action states
- */
-/*
- * Zero
- * Remove all padding & margins
- */
-/*
- * Zero List
- * Remove list styles
- */
-/* Text Decorations
- * Supply a base link color and a hover link color
- * Remove the underline, until hover
- *
- * @param1 - $link_color - the initial link color
- * @param2 - $hover_color - the links hover color
- *
- * @usage a {
- * 	@include text-decoration(#fff,#000);
- * }
- *
- */
-/* Gradients with the IE filter */
-/* Border Radius
- * Simple border-radius mixin with browser prefixes
- *
- * @usage .box {
- * 	@include border-radius(10px);
- * }
- */
-/*
- * Responsive Media Queries
- * Add media query breakpoints to a mixin so we can use them inline
- * instead of extra files. When adding break points with numbers please
- * put in the pixel number without px and then they will automatically
- * be converted into ems.
- *
- * @usage
- * 	#page {
- * 		width: 90%;
- * 		@include mq(mobile) { width: 80%; }
- * 	}
- *
- *	#page {
- * 		width: 90%;
- * 		@include min-mq(745) { width: 80%; }
- * 	}
- *
- *	#page {
- * 		width: 90%;
- * 		@include mq(745, 900) { width: 80%; }
- * 	}
- *
- * @param - $breakpoint1, $breakpoint2
- *
- * @required Sass 3.2
- *
- * @link http://css-tricks.com/media-queries-sass-3-2-and-codekit/
- * @link http://css-tricks.com/conditional-media-query-mixins/
- */
-/**
- * @file Preprocess Extends
- * Base SASS Extends
- * @link krasimirtsonev.com/blog/article/SASS-mixins-extends-and-placeholders-differences-use-cases
- * ------------------------------------------------------------------------------- */
-/**
- * =Table of Contents
- *
- * ------------------------------------------------------------------------------- */
-/**
- * @file Preprocess Placeholders
- * Base SASS Placeholders
- * @link krasimirtsonev.com/blog/article/SASS-mixins-extends-and-placeholders-differences-use-cases
- * ------------------------------------------------------------------------------- */
-/**
- * =Table of Contents
- *
- * ------------------------------------------------------------------------------- */
-/*
- * Import Styles
- * --------------------------------------------------------------------------------- */
-/* --- Layout Styles --- */
-/*
- * @file Layout Styles
- * ------------------------------------------------------------------------------- */
-/* --- Root Elements ------------------------------------------------------------ */
-* {
-  box-sizing: border-box;
-}
-
 html {
   font-size: 10px;
-  -webkit-font-smoothing: antialiased;
-}
+  -webkit-font-smoothing: antialiased; }
 
-/* --- Structure Elements -------------------------------------------------------- */
+body {
+  height: 100%; }
+
+html,
+body {
+  height: 100%; }
+
+/**
+ * Header Elements
+ */
+/**
+ * Footer Elements
+ */
+/**
+ * Structure Elements
+ */
 #page {
   margin: 0 auto;
-  width: 90%;
-}
+  width: 90%; }
 
 #content:before, #content:after {
   content: " ";
-  display: table;
-}
+  display: table; }
 #content:after {
   content: "";
   display: table;
-  clear: both;
-}
+  clear: both; }
 #content #primary {
   float: left;
-  width: 70%;
-}
+  width: 70%; }
 #content #secondary {
   float: right;
-  width: 30%;
-}
-
-/* --- Typography Styles --- */
-/*
- * @file Typography Styles
- * ------------------------------------------------------------------------------- */
-/* --- Content Elements --------------------------------------------------------- */
-h1, h2, h3, h4, h5, h6 {
-  line-height: 1;
-  font-weight: normal;
-  margin: 0 0 .5em 0;
-}
+  width: 30%; }
 
 h1,
 h1 a {
   font-size: 26px;
-  font-size: 2.6rem;
-}
+  font-size: 2.6rem; }
 
 h2 {
   font-size: 24px;
-  font-size: 2.4rem;
-}
+  font-size: 2.4rem; }
 
 h3 {
   font-size: 22px;
-  font-size: 2.2rem;
-}
+  font-size: 2.2rem; }
 
 h4 {
   font-size: 20px;
-  font-size: 2rem;
-}
+  font-size: 2rem; }
 
 h5 {
   font-size: 18px;
-  font-size: 1.8rem;
-}
+  font-size: 1.8rem; }
 
 h6 {
   font-size: 16px;
-  font-size: 1.6rem;
-}
+  font-size: 1.6rem; }
 
-p {
-  line-height: 1.25em;
-  margin: 0 0 1em 0;
-}
-
-div, span, applet, object, iframe, p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, font, ins, kbd, q, s, samp, u,
-small, strike, strong, sub, sup, tt, var,
-dl, dt, dd, ol, ul, li, fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td {
-  font-size: 14px;
-  font-size: 1.4rem;
-}
-
-/* --- Text Elements ------------------------------------------------------------- */
-/* line 95, ../sass/_typography.scss */
-b, strong { font-weight: bold; }
-
-/* line 100, ../sass/_typography.scss */
-em, i { font-style: italic; }
-
-/* --- Media Elements ------------------------------------------------------------ */
-/* line 109, ../sass/_typography.scss */
-img, embed, object, video { max-width: 100%; height: auto; }
-
-/* --- Screen Readers ------------------------------------------------------------ */
-/* line 115, ../sass/_typography.scss */
-.screen-reader-text { clip: rect(1px 1px 1px 1px); clip: rect(1px, 1px, 1px, 1px); position: absolute !important; }
-
-/* line 121, ../sass/_typography.scss */
-.screen-reader-text:hover, .screen-reader-text:active, .screen-reader-text:focus { background-color: #f1f1f1; border-radius: 3px; box-shadow: 0 0 2px 2px rgba(0, 0, 0, 0.6); clip: auto !important; color: #21759b; display: block; font-size: 14px; font-weight: bold; height: auto; left: 5px; line-height: normal; padding: 15px 23px 14px; text-decoration: none; top: 5px; width: auto; z-index: 100000; /* Above WP toolbar */ }
-
-/* --- Global Styles --- */
-/* @file Global Styles ------------------------------------------------------------------------------- */
-/* --- Header Styles --- */
-/* @file Header Styles ------------------------------------------------------------------------------- */
-@media only screen and (max-width: 34em) { /* line 5, ../sass/_header.scss */
-  .dog { background: blue; } }
-@media only screen and (min-width: 34em) and (max-width: 56em) { /* line 5, ../sass/_header.scss */
-  .dog { background: blue; } }
-@media only screen and (min-width: 56em) { /* line 5, ../sass/_header.scss */
-  .dog { background: blue; } }
-@media only screen and (min-width: 128.1em) { /* line 5, ../sass/_header.scss */
-  .dog { background: blue; } }
-@media only screen and (min-width: 64.1em) and (max-width: 102.3em) { /* line 5, ../sass/_header.scss */
-  .dog { background: blue; } }
-@media only screen and (max-width: 64.1em) { /* line 5, ../sass/_header.scss */
-  .dog { background: blue; } }
-@media only screen and (max-width: 32em) { /* line 5, ../sass/_header.scss */
-  .dog { background: blue; } }
-
-/* --- Archive Post Styles --- */
-/* @file Archive Styles ------------------------------------------------------------------------------- */
-/* --- Single Post Styles --- */
-/* @file Single Styles ------------------------------------------------------------------------------- */
-/* --- Footer Styles --- */
-/* @file Footer Styles ------------------------------------------------------------------------------- */
-/* --- Widget Styles --- */
-/* @file Widget Styles ------------------------------------------------------------------------------- */
-/* line 6, ../sass/_widgets.scss */
-#secondary .widget { margin: 0 0 2em 0; }
-
-/* --- Widget Archives ----------------------------------------------------------- */
+/**
+ * Single Posts
+ */
+/**
+ * Single Post Comments
+ */
+/**
+ * Single Pages
+ */
+/**
+ * Post Archives
+ */
+/**
+ * Global Widget Styles
+ */
+/**
+ * Widget Archive
+ */
 /* List */
 /* Dropdown */
-/* --- Widget Calendar ----------------------------------------------------------- */
-/* --- Widget Categories --------------------------------------------------------- */
+/**
+ * Widget Calendar
+ */
+/**
+ * Widget Categories
+ */
 /* List */
 /* Dropdown */
-/* --- Widget Pages -------------------------------------------------------------- */
-/* --- Widget Meta --------------------------------------------------------------- */
-/* --- Widget Recent Comments ---------------------------------------------------- */
-/* --- Widget Recent Entries ----------------------------------------------------- */
-/* --- Widget RSS ---------------------------------------------------------------- */
-/* --- Widget Search ------------------------------------------------------------- */
-/* --- Widget Text --------------------------------------------------------------- */
-/* --- Widget Tag Cloud ---------------------------------------------------------- */
-/* --- Widget Nav Menu ----------------------------------------------------------- */
+/**
+ * Widget Pages
+ */
+/**
+ * Widget Meta
+ */
+/**
+ * Widget Recent Comments
+ */
+/**
+ * Widget Recent Entries
+ */
+/**
+ * Widget RSS
+ */
+/**
+ * Widget Search
+ */
+.search-form .search-submit {
+  display: none; }
+
+/**
+ * Widget Text
+ */
+/**
+ * Widget Tag Cloud
+ */
+/**
+ * Widget Nav Menu
+ */

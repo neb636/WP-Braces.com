@@ -1,19 +1,17 @@
-/*
- * @file Widget Styles
- * ------------------------------------------------------------------------------- */
+// @file widget styles
 
- .widget {
-	#secondary & {
-		margin: 0 0 2em 0;
-	}
+/**
+ * Global Widget Styles
+ */
+.widget {
 	.widget-title {
-		#secondary & {
 
-		}
 	}
 }
 
-/* --- Widget Archives ----------------------------------------------------------- */
+/**
+ * Widget Archive
+ */
 .widget_archive {
 	.widget-title {
 
@@ -40,7 +38,9 @@
 	}
 }
 
-/* --- Widget Calendar ----------------------------------------------------------- */
+/**
+ * Widget Calendar
+ */
 .widget_calendar {
 	.widget-title {
 
@@ -84,7 +84,9 @@
 	}
 }
 
-/* --- Widget Categories --------------------------------------------------------- */
+/**
+ * Widget Categories
+ */
 .widget_categories {
 	.widget-title {
 
@@ -114,7 +116,9 @@
 	}
 }
 
-/* --- Widget Pages -------------------------------------------------------------- */
+/**
+ * Widget Pages
+ */
 .widget_pages {
 	.widget-title {
 
@@ -134,7 +138,9 @@
 	}
 }
 
-/* --- Widget Meta --------------------------------------------------------------- */
+/**
+ * Widget Meta
+ */
 .widget_meta {
 	.widget-title {
 
@@ -151,7 +157,9 @@
 	}
 }
 
-/* --- Widget Recent Comments ---------------------------------------------------- */
+/**
+ * Widget Recent Comments
+ */
 .widget_recent_comments {
 	.widget-title {
 
@@ -168,7 +176,9 @@
 	}
 }
 
-/* --- Widget Recent Entries ----------------------------------------------------- */
+/**
+ * Widget Recent Entries
+ */
 .widget_recent_entries {
 	.widget-title {
 
@@ -185,7 +195,9 @@
 	}
 }
 
-/* --- Widget RSS ---------------------------------------------------------------- */
+/**
+ * Widget RSS
+ */
 .widget_rss {
 	.widget-title {
 
@@ -211,7 +223,9 @@
 	}
 }
 
-/* --- Widget Search ------------------------------------------------------------- */
+/**
+ * Widget Search
+ */
 .widget_search {
 	.widget-title {
 
@@ -228,11 +242,13 @@
 		}
 	}
 	.search-submit {
-
+		display: none;
 	}
 }
 
-/* --- Widget Text --------------------------------------------------------------- */
+/**
+ * Widget Text
+ */
 .widget_text {
 	.widget-title {
 
@@ -247,7 +263,9 @@
 	}
 }
 
-/* --- Widget Tag Cloud ---------------------------------------------------------- */
+/**
+ * Widget Tag Cloud
+ */
 .widget_tag_cloud {
 	.widget-title {
 
@@ -260,7 +278,9 @@
 	}
 }
 
-/* --- Widget Nav Menu ----------------------------------------------------------- */
+/**
+ * Widget Nav Menu
+ */
 .widget_nav_menu {
 	.widget-title {
 

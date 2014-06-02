@@ -1,9 +1,9 @@
 <?php
 /**
- * The template for displaying search forms in Oomph Base
+ * The template for displaying search forms in our theme.
  *
  * @package WordPress
- * @subpackage {%= title %}
+ * @subpackage {%= title_capitalize %}
  * @author {%= author %}
  * @link {%= author_uri %}
  */

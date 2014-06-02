@@ -3,7 +3,7 @@
  * The template for displaying Search Results pages.
  *
  * @package WordPress
- * @subpackage {%= title %}
+ * @subpackage {%= title_capitalize %}
  * @author {%= author %}
  * @link {%= author_uri %}
  */

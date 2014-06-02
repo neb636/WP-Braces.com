@@ -5,7 +5,7 @@
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
- * @subpackage oomph_theme
+ * @subpackage {%= title_capitalize %}
  * @author {%= author %}
  * @link {%= author_uri %}
  */

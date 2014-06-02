@@ -1,26 +1,8 @@
-/*
- * @file Layout Styles
- * ------------------------------------------------------------------------------- */
+// @file layout styles
 
-
- /* --- Root Elements ------------------------------------------------------------ */
-html {
-	font-size: $base-font-size;
-	-webkit-font-smoothing: antialiased;
-}
-
-body {
-
-}
-
-html,
-body {
-
-}
-
-
-
-/* --- Structure Elements -------------------------------------------------------- */
+/**
+ * Structure Elements
+ */
 #page {
 	margin: 0 auto;
 	width: 90%;

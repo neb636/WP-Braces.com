@@ -3,7 +3,7 @@
  * The Sidebar containing the main widget areas.
  *
  * @package WordPress
- * @subpackage {%= title %}
+ * @subpackage {%= title_capitalize %}
  * @author {%= author %}
  * @link {%= author_uri %}
  */

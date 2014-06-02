@@ -3,7 +3,7 @@
  * Custom {%= post_type_name_capitalize %} Post Type
  *
  * @package WordPress
- * @subpackage {%= title %}
+ * @subpackage {%= title_capitalize %}
  * @author {%= author %}
  * @link {%= author_uri %}
  *
@@ -13,7 +13,6 @@ class {%= prefix_capitalize %}_Custom_{%= post_type_name_capitalize %} {
 
 	function __construct() {
 		add_action( 'init', array( $this, 'action_init' ) );
-		add_action( 'admin_init', array( $this, 'action_admin_init' ) );
 	}
 
 	/**
@@ -22,9 +21,9 @@ class {%= prefix_capitalize %}_Custom_{%= post_type_name_capitalize %} {
 	 */
 	function action_init() {
 		$labels = array(
-			'name'               => _x('{%= post_type_name_capitalize %}', 'post type general name'),
-			'singular_name'      => _x('{%= post_type_name_capitalize %}', 'post type singular name'),
-			'add_new'            => _x('Add New', 'Test'),
+			'name'               => _x('{%= post_type_name_capitalize %}', '{%= post_type_name %}'),
+			'singular_name'      => _x('{%= post_type_name_capitalize %}', '{%= post_type_name %}'),
+			'add_new'            => _x('Add New', '{%= post_type_name %}'),
 			'add_new_item'       => __('Add New {%= post_type_name_capitalize %}'),
 			'edit_item'          => __('Edit {%= post_type_name_capitalize %}'),
 			'new_item'           => __('New {%= post_type_name_capitalize %}'),

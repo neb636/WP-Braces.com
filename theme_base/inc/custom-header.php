@@ -14,7 +14,7 @@
 
  *
  * @package WordPress
- * @subpackage {%= title %}
+ * @subpackage {%= title_capitalize %}
  * @author {%= author %}
  * @link {%= author_uri %}
  */
@@ -26,10 +26,6 @@
  * @uses {%= prefix %}_admin_header_style()
  * @uses {%= prefix %}_admin_header_image()
  *
- * @package WordPress
- * @subpackage {%= title %}
- * @author Oomph, Inc.
- * @link http://www.oomphinc.com
  */
 function {%= prefix %}_custom_header_setup() {
 	add_theme_support( 'custom-header', apply_filters( '{%= prefix %}_custom_header_args', array(
