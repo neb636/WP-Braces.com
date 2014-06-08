@@ -2,17 +2,17 @@
 /**
  *
  * @package WordPress
- * @subpackage {%= title_capitalize %}
- * @author {%= author %}
- * @link {%= author_uri %}
+ * @subpackage Hfhkfk
+ * @author hjvjhvjhjh
+ * @link jhfjhfjh
  */
 
 /**
  * Register widgetized area and update sidebar with default widgets
  */
-function {%= prefix %}_widgets_init() {
+function cfjfkfuyr_widgets_init() {
 	register_sidebar( array(
-		'name'          => __( 'Sidebar', '{%= prefix %}' ),
+		'name'          => __( 'Sidebar', 'cfjfkfuyr' ),
 		'id'            => 'sidebar-1',
 		'before_widget' => '<aside id="%1$s" class="widget %2$s">',
 		'after_widget'  => '</aside>',
@@ -20,4 +20,4 @@ function {%= prefix %}_widgets_init() {
 		'after_title'   => '</h1>',
 	) );
 }
-add_action( 'widgets_init', '{%= prefix %}_widgets_init' );
+add_action( 'widgets_init', 'cfjfkfuyr_widgets_init' );

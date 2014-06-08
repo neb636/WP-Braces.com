@@ -3,13 +3,13 @@
  * Custom {%= post_type_name_capitalize %} Post Type
  *
  * @package WordPress
- * @subpackage {%= title_capitalize %}
- * @author {%= author %}
- * @link {%= author_uri %}
+ * @subpackage Hfhkfk
+ * @author hjvjhvjhjh
+ * @link jhfjhfjh
  *
  */
 
-class {%= prefix_capitalize %}_Custom_{%= post_type_name_capitalize %} {
+class Cfjfkfuyr_Custom_{%= post_type_name_capitalize %} {
 
 	function __construct() {
 		add_action( 'init', array( $this, 'action_init' ) );
@@ -60,4 +60,4 @@ class {%= prefix_capitalize %}_Custom_{%= post_type_name_capitalize %} {
 	}
 }
 
-$custom_{%= post_type_name %} = new {%= prefix_capitalize %}_Custom_{%= post_type_name_capitalize %}();
+$custom_{%= post_type_name %} = new Cfjfkfuyr_Custom_{%= post_type_name_capitalize %}();

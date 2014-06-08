@@ -1,6 +1,6 @@
 # app.rb
+#require 'sinatra'
 set :public_folder, 'public'
-
 
 get "/" do
   erb :index
@@ -16,6 +16,7 @@ post '/form' do
   custom_post_types = params[:custom_post_types]
   sass = params[:sass]
   compass = params[:compass]
+  gulp = params[:gulp]
 
   # Copy files to temp folder
   Builder.temp
@@ -24,34 +25,34 @@ post '/form' do
   Builder.file_or_dir_delete('languages', language_support)
   Builder.tag_replace_delete('LANG', language_support)
 
-    ## Custom Post Types
-    # if answer == 'yes' || answer == 'y'
-    #   Builder.tag_replace_delete('CUSTOM-POSTS', answer, true)
-    #   Builder.custom_post_types_create
-    # else
-    #   FileUtils.rm_rf('extensions/custom-post-types')
-    #   Builder.tag_replace_delete('CUSTOM-POSTS', answer)
-    # end
+  # Custom Post Types
+  # if custom_post_types == 'yes' || custom_post_types == 'y'
+  #   Builder.tag_replace_delete('CUSTOM-POSTS', custom_post_types, true)
+  #   Builder.custom_post_types_create
+  # else
+  FileUtils.rm_rf('extensions/custom-post-types')
+  Builder.tag_replace_delete('CUSTOM-POSTS', 'n')
+  # end
 
   ## SASS Support
   Builder.file_or_dir_delete('sass', sass)
   Builder.tag_replace_delete('SASSGULP', sass, true)
 
-  if answer == 'y' || answer == 'yes'
+  if sass == 'y' || sass == 'yes'
     ## Compass Support
     Builder.tag_replace_delete('COMPASS', compass)
     Builder.tag_replace_delete('GULPCOMPASS', compass, true)
     Builder.tag_replace_delete('GULPNONCOMPASS', compass)
     Builder.file_or_dir_delete('config.rb', compass)
   else
-    File.open('temp/theme_1/css/styles.css', 'w') { |file| file.truncate(0) } # Empty contents of css file
+    File.open('public/temp/theme_1/css/styles.css', 'w') { |file| file.truncate(0) } # Empty contents of css file
   end
 
   ## Gulp Support
-  # Builder.file_or_dir_delete('gulpfile.js', answer)
-  # Builder.file_or_dir_delete('package.json', answer)
-  # Builder.tag_replace_delete('GULP', answer, true)
-  # Builder.tag_replace_delete('NONGULP', answer)
+  Builder.file_or_dir_delete('gulpfile.js', gulp)
+  Builder.file_or_dir_delete('package.json', gulp)
+  Builder.tag_replace_delete('GULP', gulp, true)
+  Builder.tag_replace_delete('NONGULP', gulp)
 
   ## Theme Name
   find_replace_var = {:replacement=>theme_name, :original=>'{%= title %}'}
@@ -81,24 +82,30 @@ post '/form' do
   ## Theme Description
   find_replace_var = {:replacement=>description, :original=>'{%= description %}'}
   Builder.write_replace(find_replace_var)
+
+  Builder.zip_file
+
+  send_file('public/temp/builder_theme.zip', :filename => "builder_theme.zip")
+
+  File.delete 'public/temp/theme_1'
 end
 
 
 module Builder
+
+  @theme_directory = 'public/temp/theme_1/'
+
   class << self
 
+    require 'rubygems'
     require 'fileutils'
-
-    # Instance variables
-    def initialize
-      @theme_directory = 'temp/theme_1/'
-    end
+    require 'zip'
 
     # Copy theme to temp folder
     #
     # TODO: In future have this work by generating a new number at the end
     def temp
-      FileUtils.copy_entry 'theme_base', 'temp/theme_1'
+      FileUtils.copy_entry 'theme_base', 'public/temp/theme_1'
     end
 
     # Used to either keep text between tags or delete it from the template.
@@ -200,6 +207,18 @@ module Builder
       # Put includes into functions.php
       find_replace_var = {:replacement=>tag_replacement, :original=>tag_to_replace}
       write_replace(find_replace_var)
+    end
+
+    # Zips the files up
+    def zip_file
+      directory = 'public/temp/theme_1/'
+      zipfile_name = 'public/temp/builder_theme.zip'
+
+      Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+        Dir[File.join(directory, '**', '**')].each do |file|
+          zipfile.add(file.sub(directory, ''), file)
+        end
+      end
     end
 
     # Creates custom post types if needed by asking how many and then asking for a name. If no

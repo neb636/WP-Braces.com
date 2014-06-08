@@ -1,9 +1,9 @@
 <?php
 /**
  * @package WordPress
- * @subpackage {%= title_capitalize %}
- * @author {%= author %}
- * @link {%= author_uri %}
+ * @subpackage Hfhkfk
+ * @author hjvjhvjhjh
+ * @link jhfjhfjh
  */
 ?>
 
@@ -13,7 +13,7 @@
 
 		<?php if ( 'post' == get_post_type() ) { ?>
 		<div class="entry-meta">
-			<?php {%= prefix %}_posted_on(); ?>
+			<?php cfjfkfuyr_posted_on(); ?>
 		</div><!-- .entry-meta -->
 		<?php } ?>
 	</header><!-- .entry-header -->
@@ -26,10 +26,10 @@
 		}
 		else { ?>
 	<div class="entry-content">
-		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', '{%= prefix %}' ) ); ?>
+		<?php the_content( __( 'Continue reading <span class="meta-nav">&rarr;</span>', 'cfjfkfuyr' ) ); ?>
 		<?php
 			wp_link_pages( array(
-				'before' => '<div class="page-links">' . __( 'Pages:', '{%= prefix %}' ),
+				'before' => '<div class="page-links">' . __( 'Pages:', 'cfjfkfuyr' ),
 				'after'  => '</div>',
 			) );
 		?>
@@ -41,30 +41,30 @@
 			<?php
 				if ( 'post' == get_post_type() ) { // Hide category and tag text for pages on Search
 					/* translators: used between list items, there is a space after the comma */
-					$categories_list = get_the_category_list( __( ', ', '{%= prefix %}' ) );
-					if ( $categories_list && {%= prefix %}_categorized_blog() ) {
+					$categories_list = get_the_category_list( __( ', ', 'cfjfkfuyr' ) );
+					if ( $categories_list && cfjfkfuyr_categorized_blog() ) {
 				?>
 				<span class="cat-links">
-					<?php printf( __( 'Posted in %1$s', '{%= prefix %}' ), $categories_list ); ?>
+					<?php printf( __( 'Posted in %1$s', 'cfjfkfuyr' ), $categories_list ); ?>
 				</span>
 				<?php } // End if categories ?>
 
 				<?php
 					/* translators: used between list items, there is a space after the comma */
-					$tags_list = get_the_tag_list( '', __( ', ', '{%= prefix %}' ) );
+					$tags_list = get_the_tag_list( '', __( ', ', 'cfjfkfuyr' ) );
 					if ( $tags_list ) {
 				?>
 				<span class="tags-links">
-					<?php printf( __( 'Tagged %1$s', '{%= prefix %}' ), $tags_list ); ?>
+					<?php printf( __( 'Tagged %1$s', 'cfjfkfuyr' ), $tags_list ); ?>
 				</span>
 				<?php } // End if $tags_list ?>
 			<?php } // End if 'post' == get_post_type() ?>
 
 			<?php if ( !post_password_required() && ( comments_open() || '0' != get_comments_number() ) ) { ?>
-			<span class="comments-link"><?php comments_popup_link( __( 'Leave a comment', '{%= prefix %}' ), __( '1 Comment', '{%= prefix %}' ), __( '% Comments', '{%= prefix %}' ) ); ?></span>
+			<span class="comments-link"><?php comments_popup_link( __( 'Leave a comment', 'cfjfkfuyr' ), __( '1 Comment', 'cfjfkfuyr' ), __( '% Comments', 'cfjfkfuyr' ) ); ?></span>
 			<?php } ?>
 
-			<?php edit_post_link( __( 'Edit', '{%= prefix %}' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php edit_post_link( __( 'Edit', 'cfjfkfuyr' ), '<span class="edit-link">', '</span>' ); ?>
 		</div><!-- .entry-meta -->
 	</footer><!-- .entry-footer -->
 </article><!-- #post-## -->

@@ -5,9 +5,9 @@
  * Eventually, some of the functionality here could be replaced by core features
  *
  * @package WordPress
- * @subpackage {%= title_capitalize %}
- * @author {%= author %}
- * @link {%= author_uri %}
+ * @subpackage Hfhkfk
+ * @author hjvjhvjhjh
+ * @link jhfjhfjh
  */
 
 /**
@@ -16,11 +16,11 @@
  * @param array $args Configuration arguments.
  * @return array
  */
-function {%= prefix %}_page_menu_args( $args ) {
+function cfjfkfuyr_page_menu_args( $args ) {
 	$args['show_home'] = true;
 	return $args;
 }
-add_filter( 'wp_page_menu_args', '{%= prefix %}_page_menu_args' );
+add_filter( 'wp_page_menu_args', 'cfjfkfuyr_page_menu_args' );
 
 /**
  * Adds custom classes to the array of body classes.
@@ -28,7 +28,7 @@ add_filter( 'wp_page_menu_args', '{%= prefix %}_page_menu_args' );
  * @param array $classes Classes for the body element.
  * @return array
  */
-function {%= prefix %}_body_classes( $classes ) {
+function cfjfkfuyr_body_classes( $classes ) {
 	// Adds a class of group-blog to blogs with more than 1 published author
 	if ( is_multi_author() ) {
 		$classes[] = 'group-blog';
@@ -36,12 +36,12 @@ function {%= prefix %}_body_classes( $classes ) {
 
 	return $classes;
 }
-add_filter( 'body_class', '{%= prefix %}_body_classes' );
+add_filter( 'body_class', 'cfjfkfuyr_body_classes' );
 
 /**
  * Filter in a link to a content ID attribute for the next/previous image links on image attachment pages
  */
-function {%= prefix %}_enhanced_image_navigation( $url, $id ) {
+function cfjfkfuyr_enhanced_image_navigation( $url, $id ) {
 	if ( !is_attachment() && !wp_attachment_is_image( $id ) )
 		return $url;
 
@@ -52,7 +52,7 @@ function {%= prefix %}_enhanced_image_navigation( $url, $id ) {
 
 	return $url;
 }
-add_filter( 'attachment_link', '{%= prefix %}_enhanced_image_navigation', 10, 2 );
+add_filter( 'attachment_link', 'cfjfkfuyr_enhanced_image_navigation', 10, 2 );
 
 /**
  * Filters wp_title to print a neat <title> tag based on what is being viewed.
@@ -61,7 +61,7 @@ add_filter( 'attachment_link', '{%= prefix %}_enhanced_image_navigation', 10, 2 
  * @param string $sep Optional separator.
  * @return string The filtered title.
  */
-function {%= prefix %}_wp_title( $title, $sep ) {
+function cfjfkfuyr_wp_title( $title, $sep ) {
 	global $page, $paged;
 
 	if ( is_feed() ) {
@@ -79,9 +79,9 @@ function {%= prefix %}_wp_title( $title, $sep ) {
 
 	// Add a page number if necessary:
 	if ( $paged >= 2 || $page >= 2 ) {
-		$title .= " $sep " . sprintf( __( 'Page %s', '{%= prefix %}' ), max( $paged, $page ) );
+		$title .= " $sep " . sprintf( __( 'Page %s', 'cfjfkfuyr' ), max( $paged, $page ) );
 	}
 
 	return $title;
 }
-add_filter( 'wp_title', '{%= prefix %}_wp_title', 10, 2 );
+add_filter( 'wp_title', 'cfjfkfuyr_wp_title', 10, 2 );

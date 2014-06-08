@@ -5,9 +5,9 @@
  * Displays all of the <head> section and everything up till <div id="content">
  *
  * @package WordPress
- * @subpackage {%= title_capitalize %}
- * @author {%= author %}
- * @link {%= author_uri %}
+ * @subpackage Hfhkfk
+ * @author hjvjhvjhjh
+ * @link jhfjhfjh
  */
 ?><!DOCTYPE html>
 <!--[if lt IE 8 ]><html xmlns="http://www.w3.org/1999/xhtml" <?php language_attributes(); ?> class="ie7 ie"><![endif]-->
@@ -33,8 +33,8 @@
 		</div>
 
 		<nav id="site-navigation" class="main-navigation" role="navigation">
-			<h1 class="menu-toggle"><?php _e( 'Menu', '{%= prefix %}' ); ?></h1>
-			<div class="screen-reader-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', '{%= prefix %}' ); ?>"><?php _e( 'Skip to content', '{%= prefix %}' ); ?></a></div>
+			<h1 class="menu-toggle"><?php _e( 'Menu', 'cfjfkfuyr' ); ?></h1>
+			<div class="screen-reader-text skip-link"><a href="#content" title="<?php esc_attr_e( 'Skip to content', 'cfjfkfuyr' ); ?>"><?php _e( 'Skip to content', 'cfjfkfuyr' ); ?></a></div>
 
 			<?php wp_nav_menu( array( 'theme_location' => 'primary' ) ); ?>
 		</nav><!-- #site-navigation -->

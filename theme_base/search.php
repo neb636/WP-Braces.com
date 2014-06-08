@@ -3,9 +3,9 @@
  * The template for displaying Search Results pages.
  *
  * @package WordPress
- * @subpackage {%= title_capitalize %}
- * @author {%= author %}
- * @link {%= author_uri %}
+ * @subpackage Hfhkfk
+ * @author hjvjhvjhjh
+ * @link jhfjhfjh
  */
 
 get_header(); ?>
@@ -17,7 +17,7 @@ get_header(); ?>
 			if ( have_posts() ) { ?>
 
 				<header class="page-header">
-					<h1 class="page-title"><?php printf( __( 'Search Results for: %s', '{%= prefix %}' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
+					<h1 class="page-title"><?php printf( __( 'Search Results for: %s', 'cfjfkfuyr' ), '<span>' . get_search_query() . '</span>' ); ?></h1>
 				</header><!-- .page-header -->
 
 				<?php
@@ -25,7 +25,7 @@ get_header(); ?>
 				 		the_post();
 						get_template_part( 'content', 'search' );
 					}
-					{%= prefix %}_paging_nav();
+					cfjfkfuyr_paging_nav();
 				?>
 
 		<?php }

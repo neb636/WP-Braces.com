@@ -1,6 +1,6 @@
 <section class="row section">
 	<div class="row-content ">
-		<div class="section-title"><h2>Build Theme</h2></div>	
+		<div class="section-title"><h2>Build Theme</h2></div>
 		<div class="column full">
 			<form class="build-form contact-section" method="post" action="/form">
 
@@ -13,7 +13,7 @@
 					<label>What is the theme author name?</label>
 					<input class="name plain buffer" type="text" name="author_name">
 				</div>
-						
+
 				<div class="question">
 					<label>What is the theme authors URL?</label>
 					<input class="name plain buffer" type="text" name="url">
@@ -23,12 +23,12 @@
 					<label>What should the prefix for your project be?</label>
 					<input class="name plain buffer" type="text" name="prefix">
 				</div>
-						
+
 				<div class="question full">
 					<label>Please list your themes description</label>
 					<textarea class="plain" name="description"></textarea>
 				</div>
-						
+
 				<div class="question">
 					<label>Will this theme need language support?</label>
 					<div class="radio">
@@ -45,7 +45,7 @@
 					</div>
 				</div> -->
 
-				<div class="question">						
+				<div class="question">
 					<label>Would you like to use SASS with this theme?</label>
 					<div class="radio">
 						<input id="sass-yes" type="radio" name="sass" value="yes">Yes
@@ -61,10 +61,18 @@
 					</div>
 				</div>
 
+				<div class="question">
+					<label>Would you like to use Gulp with this theme?</label>
+					<div class="radio">
+						<input type="radio" name="gulp" value="yes">Yes
+						<input type="radio" name="gulp" value="no">No
+					</div>
+				</div>
+
 				<input id="send" class="plain button red" type="submit" value="Download Now">
-							
-			</form>	
+
+			</form>
 			<div id="success"></div>
 		</div>
 	</div>
-</section>	
+</section>

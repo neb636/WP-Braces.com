@@ -3,9 +3,9 @@
  * The Sidebar containing the main widget areas.
  *
  * @package WordPress
- * @subpackage {%= title_capitalize %}
- * @author {%= author %}
- * @link {%= author_uri %}
+ * @subpackage Hfhkfk
+ * @author hjvjhvjhjh
+ * @link jhfjhfjh
  */
 ?>
 	<div id="secondary" class="widget-area" role="complementary">
@@ -16,14 +16,14 @@
 			</aside>
 
 			<aside id="archives" class="widget">
-				<h1 class="widget-title"><?php _e( 'Archives', '{%= prefix %}' ); ?></h1>
+				<h1 class="widget-title"><?php _e( 'Archives', 'cfjfkfuyr' ); ?></h1>
 				<ul>
 					<?php wp_get_archives( array( 'type' => 'monthly' ) ); ?>
 				</ul>
 			</aside>
 
 			<aside id="meta" class="widget">
-				<h1 class="widget-title"><?php _e( 'Meta', '{%= prefix %}' ); ?></h1>
+				<h1 class="widget-title"><?php _e( 'Meta', 'cfjfkfuyr' ); ?></h1>
 				<ul>
 					<?php wp_register(); ?>
 					<li><?php wp_loginout(); ?></li>
