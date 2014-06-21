@@ -8,9 +8,9 @@
  * different template.
  *
  * @package WordPress
- * @subpackage Hfhkfk
- * @author hjvjhvjhjh
- * @link jhfjhfjh
+ * @subpackage {%= title_capitalize %}
+ * @author {%= author %}
+ * @link {%= author_uri %}
  */
 
 get_header(); ?>

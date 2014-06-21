@@ -1,11 +1,11 @@
 <?php
 /**
- * hfhkfk Theme Customizer
+ * {%= title %} Theme Customizer
  *
  * @package WordPress
- * @subpackage Hfhkfk
- * @author hjvjhvjhjh
- * @link jhfjhfjh
+ * @subpackage {%= title_capitalize %}
+ * @author {%= author %}
+ * @link {%= author_uri %}
  */
 
 /**
@@ -13,17 +13,17 @@
  *
  * @param WP_Customize_Manager $wp_customize Theme Customizer object.
  */
-function cfjfkfuyr_customize_register( $wp_customize ) {
+function {%= prefix %}_customize_register( $wp_customize ) {
 	$wp_customize->get_setting( 'blogname' )->transport         = 'postMessage';
 	$wp_customize->get_setting( 'blogdescription' )->transport  = 'postMessage';
 	$wp_customize->get_setting( 'header_textcolor' )->transport = 'postMessage';
 }
-add_action( 'customize_register', 'cfjfkfuyr_customize_register' );
+add_action( 'customize_register', '{%= prefix %}_customize_register' );
 
 /**
  * Binds JS handlers to make Theme Customizer preview reload changes asynchronously.
  */
-function cfjfkfuyr_customize_preview_js() {
-	wp_enqueue_script( 'cfjfkfuyr_customizer', get_template_directory_uri() . '/javascripts/customizer.js', array( 'customize-preview' ), '20130508', true );
+function {%= prefix %}_customize_preview_js() {
+	wp_enqueue_script( '{%= prefix %}_customizer', get_template_directory_uri() . '/javascripts/customizer.js', array( 'customize-preview' ), '20130508', true );
 }
-add_action( 'customize_preview_init', 'cfjfkfuyr_customize_preview_js' );
+add_action( 'customize_preview_init', '{%= prefix %}_customize_preview_js' );

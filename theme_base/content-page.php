@@ -3,9 +3,9 @@
  * The template used for displaying page content in page.php
  *
  * @package WordPress
- * @subpackage Hfhkfk
- * @author hjvjhvjhjh
- * @link jhfjhfjh
+ * @subpackage {%= title_capitalize %}
+ * @author {%= author %}
+ * @link {%= author_uri %}
  */
 ?>
 
@@ -18,14 +18,14 @@
 		<?php the_content(); ?>
 		<?php
 			wp_link_pages( array(
-				'before' => '<div class="page-links">' . __( 'Pages:', 'cfjfkfuyr' ),
+				'before' => '<div class="page-links">' . __( 'Pages:', '{%= prefix %}' ),
 				'after'  => '</div>',
 			) );
 		?>
 	</div><!-- .entry-content -->
 	<footer class="entry-footer">
 		<div class="entry-meta">
-			<?php edit_post_link( __( 'Edit', 'cfjfkfuyr' ), '<span class="edit-link">', '</span>' ); ?>
+			<?php edit_post_link( __( 'Edit', '{%= prefix %}' ), '<span class="edit-link">', '</span>' ); ?>
 		</div><!-- .entry-meta -->
 	</footer><!-- .entry-footer -->
 </article><!-- #post-## -->

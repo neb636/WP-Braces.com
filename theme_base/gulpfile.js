@@ -17,7 +17,21 @@ var footer_js_order = [
 		'javascripts/skip-link-focus-fix.js'
 	];
 
-var header_js_order = [ 'javascripts/modernizr.js' ];
+var header_js_order = [ 'javascripts/modernizr.js' ];{{{SASSGULP}}}
+
+// Styles
+gulp.task('styles', function() {
+	gulp.src('sass/styles.scss'){{{GULPCOMPASS}}}
+		.pipe(compass({
+				config_file: './config.rb',
+				css: 'css',
+				sass: 'sass'
+		})){{{/GULPCOMPASS}}}{{{GULPNONCOMPASS}}}
+		.pipe(sass({style: 'compressed'})){{{/GULPNONCOMPASS}}}
+		.pipe(autoprefixer('last 1 version', '> 1%', 'ie 9', 'ie 8', 'ie 7'))
+		.pipe(rem())
+		.pipe(gulp.dest('css/'));
+});{{{/SASSGULP}}}
 
 // Footer Scripts
 gulp.task('footer_scripts', function() {

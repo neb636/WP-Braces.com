@@ -9,9 +9,9 @@
  * Learn more: http://codex.wordpress.org/Template_Hierarchy
  *
  * @package WordPress
- * @subpackage Hfhkfk
- * @author hjvjhvjhjh
- * @link jhfjhfjh
+ * @subpackage {%= title_capitalize %}
+ * @author {%= author %}
+ * @link {%= author_uri %}
  */
 
 get_header(); ?>
@@ -31,7 +31,7 @@ get_header(); ?>
 					get_template_part( 'content', get_post_format() );
 				}
 
-				cfjfkfuyr_paging_nav();
+				{%= prefix %}_paging_nav();
 			}
 			else {
 				get_template_part( 'content', 'none' );

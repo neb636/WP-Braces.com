@@ -8,4 +8,4 @@ require 'erb'
 set :run, false
 set :raise_errors, true
 
-run Sinatra::Application
+run BuilderRoutes
