@@ -4,7 +4,7 @@
  *   mokaine.com
  */
 
-jQuery(document).ready(function ($) {
+;jQuery(document).ready(function ($) {
 
 
     /* Define some vars */

@@ -2,26 +2,27 @@
 	<div class="row-content ">
 		<div class="section-title"><h2>Build Theme</h2></div>
 		<div class="column full">
-			<form  name="example_form" class="build-form contact-section" method="post" action="/basetheme">
+			<form  id="braces-form" name="example_form" class="build-form contact-section" method="post" action="/basetheme" data-validate="parsley">
 
 				<div class="question">
 					<label>What is your themes name?</label>
-					<input class="name plain buffer" type="text" name="theme_name">
+					<input class="name plain buffer" type="text" name="theme_name" data-parsley-required="true">
 				</div>
 
 				<div class="question">
 					<label>What is the theme author name?</label>
-					<input class="name plain buffer" type="text" name="author_name">
+					<input required class="name plain buffer" type="text" name="author_name" data-parsley-required="true">
 				</div>
 
 				<div class="question">
 					<label>What is the theme authors URL?</label>
-					<input class="name plain buffer" type="text" name="url">
+					<input required class="name plain buffer" type="url" name="url" data-parsley-required="true" data-parsley-type="url">
 				</div>
 
 				<div class="question">
 					<label>What should the prefix for your project be?</label>
-					<input class="name plain buffer" type="text" name="prefix">
+					<input required class="name plain buffer" type="text" name="prefix" data-parsley-minlength="3" data-parsley-required="true" pattern="/^[a-z][a-z_]+[a-z]$/" data-parsley-pattern="/^[a-z][a-z_]+[a-z]$/">
+					<span class="form-comments">At least three characters, first and last characters letters only, letters and _'s for the rest</span>
 				</div>
 
 				<div class="question full">
@@ -32,8 +33,8 @@
 				<div class="question">
 					<label>Will this theme need language support?</label>
 					<div class="radio">
-						<input type="radio" name="language_support" value="yes">Yes
-						<input type="radio" name="language_support" value="no">No
+						<input required type="radio" name="language_support" value="yes" data-parsley-required="true">Yes
+						<input required type="radio" name="language_support" value="no" data-parsley-required="true">No
 					</div>
 				</div>
 
@@ -48,8 +49,8 @@
 				<div class="question">
 					<label>Would you like to use SASS with this theme?</label>
 					<div class="radio">
-						<input id="sass-yes" type="radio" name="sass" value="yes">Yes
-						<input type="radio" name="sass" value="no">No
+						<input required id="sass-yes" type="radio" name="sass" value="yes" data-parsley-required="true">Yes
+						<input required type="radio" name="sass" value="no" data-parsley-required="true">No
 					</div>
 				</div>
 
@@ -64,12 +65,12 @@
 				<div class="question">
 					<label>Would you like to use Gulp with this theme?</label>
 					<div class="radio">
-						<input type="radio" name="gulp" value="yes">Yes
-						<input type="radio" name="gulp" value="no">No
+						<input required type="radio" name="gulp" value="yes" data-parsley-required="true">Yes
+						<input required type="radio" name="gulp" value="no" data-parsley-required="true">No
 					</div>
 				</div>
 
-				<input id="send" class="plain button red" type="submit" value="Download Now">
+				<input id="send" class="plain button red" type="submit" value="Download Now" onclick="javascript:$('#braces-form').parsley( 'validate' );">
 
 			</form>
 			<div id="success"></div>
