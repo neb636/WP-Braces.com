@@ -108,54 +108,31 @@ module Builder
     # custom post type is needed the custom post type folder is deleted. This method needs lots of refactoring.
     #
     # TODO: Make this not specific to CPT's but to files that can be created more than once
-    def custom_post_types_create
-      puts "\nHow many custom post types do you need?"
-      amount = gets.chomp.to_i
+    def custom_post_types_create(custom_post_types_array)
 
-      if amount > 0
+      original_file = $base_theme_directory + 'extensions/custom-post-types/custom-post-type.php'
+      files_array = Array.new
+      index = 0
 
-        original_file = $base_theme_directory + 'extensions/custom-post-types/custom-post-type.php'
-        files_array = Array.new
-        index = 0
+      custom_post_types_array.each do |cpt_name|
+        new_file = $base_theme_directory + 'extensions/custom-post-types/' + answer.gsub(' ', '-') + '-post-type-class.php'
 
-        # Loop through number of custom post types specified and create them
-        amount.times do
-          index = index + 1
-          puts "\nWhat should the post type #{index} be named?"
-          puts "(At least three characters, first and last characters letters only, letters and _'s for the rest.)"
+        # Push files into files array for includes later
+        FileUtils.cp(original_file, new_file)
+        files_array.push(new_file)
 
-          new_file = $base_theme_directory + 'extensions/custom-post-types/' + answer.gsub(' ', '-') + '-post-type-class.php'
+        # Find and replace variables
+        find_replace_var = {:replacement=>answer, :original=>'{%= post_type_name %}'}
+        find_replace_var_capitalize = {:replacement=>answer.capitalize, :original=>'{%= post_type_name_capitalize %}'}
 
-          # Make sure not duplicate answer
-          files_array.each do |file|
-            if new_file == file
-              until new_file != file
-                puts "\nPost type name already used"
-                puts "\nWhat should the post type #{index} be named?"
-                puts "\n(At least three characters, first and last characters letters only, letters and _'s for the rest.)"
-
-                new_file = $base_theme_directory + 'extensions/custom-post-types/' + answer.gsub(' ', '-') + '-post-type-class.php'
-              end
-            end
-          end
-
-          # Push files into files array for includes later
-          FileUtils.cp(original_file, new_file)
-          files_array.push(new_file)
-
-          # Find and replace variables
-          find_replace_var = {:replacement=>answer, :original=>'{%= post_type_name %}'}
-          find_replace_var_capitalize = {:replacement=>answer.capitalize, :original=>'{%= post_type_name_capitalize %}'}
-
-          write_replace(find_replace_var, original_file)
-          write_replace(find_replace_var_capitalize, original_file)
-          puts "\nCreated #{new_file}"
-        end
-
-        # Delete original file and add includes into functions.php
-        File.delete(original_file)
-        file_includes(files_array, '{%= post_type_include %}')
+        write_replace(find_replace_var, original_file)
+        write_replace(find_replace_var_capitalize, original_file)
+        puts "\nCreated #{new_file}"
       end
+
+      # Delete original file and add includes into functions.php
+      File.delete(original_file)
+      file_includes(files_array, '{%= post_type_include %}')
     end
 
     private

@@ -17,10 +17,21 @@ class BuilderRoutes < Sinatra::Base
     prefix = params['prefix']
     description = params[:description]
     language_support = params[:language_support]
-    custom_post_types = params[:custom_post_types]
+    # custom_post_types = params[:custom_post_types]
+    # custom_post_types_number = params[:cpt_number]
     sass = params[:sass]
     compass = params[:compass]
     gulp = params[:gulp]
+
+    # Create the amount of params for each custom post name
+    # if custom_post_types_number > 1
+    #   index = 1
+    #   custom_post_types_number.times do
+    #     custom_post_types_array.push(params[:cpt_name_ + index.to_s])
+    #     index = index + 1
+    #   end
+    #   custom_post_types_create(custom_post_types_array)
+    # end
 
     # Be naughty and polute the global namespace for convienence
     $base_theme_directory = 'public/temp/theme_1/'
@@ -44,8 +55,8 @@ class BuilderRoutes < Sinatra::Base
     #   Builder.tag_replace_delete('CUSTOM-POSTS', custom_post_types, true)
     #   Builder.custom_post_types_create
     # else
-    FileUtils.rm_rf('extensions/custom-post-types')
-    Builder.tag_replace_delete('CUSTOM-POSTS', 'n')
+    #   FileUtils.rm_rf('extensions/custom-post-types')
+    #   Builder.tag_replace_delete('CUSTOM-POSTS', 'n')
     # end
 
     ## SASS Support
@@ -97,7 +108,6 @@ class BuilderRoutes < Sinatra::Base
     ## Theme Description
     find_replace_var = {:replacement=>description, :original=>'{%= description %}'}
     Builder.write_replace(find_replace_var)
-
 
     # Zip and save as variable
     Builder.zip_file(temp_number)

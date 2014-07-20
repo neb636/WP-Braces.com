@@ -2067,8 +2067,9 @@ section.greyish {
 .contact-section input.name,
 .contact-section input.email,
 .comment-form input.name,
-.comment-form input.email {
-    padding-left: 3em;
+.comment-form input.email,
+.question textarea.plain {
+    padding-left: 1em;
 }
 
 .contact-section input.name,
@@ -4097,6 +4098,37 @@ footer .row-content.buffer {
     background: url("img/mockups/iphone-grey.png") no-repeat;
 }
 
+@media only screen and (max-width: 500px) {
+    #intro-wrap {
+        height: 20em;
+    }
+
+    #intro .intro-item {
+        background-position: center -26px;
+    }
+
+    .question {
+        width: 100%;
+    }
+
+    #send {
+        float: none;
+        margin: 0 auto;
+        display: block;
+    }
+
+    .caption {
+
+        h2 {
+         margin-bottom: 0;
+        }
+
+        p {
+            margin-top: -.5em;
+        }
+
+    }
+}
 .iphone-mockup,
 .iphone-mockup.black,
 .iphone-mockup.white,
@@ -5351,4 +5383,12 @@ footer {
   a {
     color: #B5B9CC;
   }
+}
+
+.cpt-number {
+    display: none;
+
+    &.active {
+        display: block;
+    }
 }

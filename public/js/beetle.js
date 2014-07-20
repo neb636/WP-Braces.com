@@ -288,7 +288,7 @@
                     var $this = $(this);
 
                     $this.css({
-                        top: ((pxWrapper.height() + headerHeight / 2) - $this.outerHeight()) / 2
+                        top: ((pxWrapper.height() + headerHeight / 2) - $this.outerHeight()) / 2 + 25
                     });
 
                 });
@@ -334,7 +334,7 @@
                     } else {
 
                         $this.css({
-                            top: (pxWrapper.height() - $this.outerHeight()) / 2
+                            top: (pxWrapper.height() - $this.outerHeight()) / 2 + 8
                         });
 
                     }

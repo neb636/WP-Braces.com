@@ -16,12 +16,12 @@
 
 				<div class="question">
 					<label>What is the theme authors URL?</label>
-					<input required class="name plain buffer" type="url" name="url" data-parsley-required="true" data-parsley-type="url">
+					<input required class="name plain buffer" type="text" name="url" data-parsley-required="true" data-parsley-type="url">
 				</div>
 
 				<div class="question">
 					<label>What should the prefix for your project be?</label>
-					<input required class="name plain buffer" type="text" name="prefix" data-parsley-minlength="3" data-parsley-required="true" pattern="/^[a-z][a-z_]+[a-z]$/" data-parsley-pattern="/^[a-z][a-z_]+[a-z]$/">
+					<input required class="name plain buffer" type="text" name="prefix" data-parsley-minlength="3" data-parsley-required="true" data-parsley-pattern="/^[a-z][a-z_]+[a-z]$/">
 					<span class="form-comments">At least three characters, first and last characters letters only, letters and _'s for the rest</span>
 				</div>
 
@@ -41,10 +41,19 @@
 				<!-- <div class="question">
 					<label>Will you need a custom post type for this theme?</label>
 					<div class="radio">
-						<input type="radio" name="custom_post_types" value="Yes">Yes
+						<input id="cpt-yes" type="radio" name="custom_post_types" value="Yes">Yes
 						<input type="radio" name="custom_post_types" value="No">No
 					</div>
+				</div>
+
+				<div id="cpt-number-wrapper" class="question cpt-number">
+					<label>How many Custom Post Types do you need?</label>
+					<div class="radio">
+						<input required id="cpt-number" class="name plain buffer" type="text" name="cpt_number" data-parsley-required="true" data-parsley-type="number">
+					</div>
 				</div> -->
+
+				<!-- <div id="cpt-name-wrapper"></div> -->
 
 				<div class="question">
 					<label>Would you like to use SASS with this theme?</label>
