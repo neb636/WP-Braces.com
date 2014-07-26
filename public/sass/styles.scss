@@ -5392,3 +5392,26 @@ footer {
         display: block;
     }
 }
+
+.error-page {
+    text-align: center;
+    background-color: #42A1B8;
+    height: 100%;
+
+    h1 {
+        padding-top: 1em;
+        font-size: 3rem;
+    }
+
+    h1, h5 {
+        color: #fff;
+    }
+
+    img {
+        margin-bottom: 2em;
+    }
+}
+
+.error-image {
+    margin: 0 auto;
+}

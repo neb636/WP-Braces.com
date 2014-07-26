@@ -29,7 +29,12 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     lumberjack (1.0.6)
+    mail (2.6.1)
+      mime-types (>= 1.16, < 3)
     method_source (0.8.2)
+    mime-types (2.3)
+    pony (1.10)
+      mail (>= 2.0)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -67,6 +72,7 @@ DEPENDENCIES
   guard
   guard-bundler
   guard-rack
+  pony
   rubyzip (>= 1.0.0)
   sendfile (~> 1.2.1)
   sinatra
