@@ -113,7 +113,7 @@ class BuilderRoutes < Sinatra::Base
 
       # Zip and save as variable
       Builder.zip_file(temp_number)
-      content_type(:zdip)
+      content_type(:zip)
       content = File.read("public/temp/builder_theme#{temp_number}.zip")
 
       # Delete temp files created
