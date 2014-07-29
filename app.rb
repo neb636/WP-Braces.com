@@ -2,7 +2,6 @@
 $:.push File.expand_path('../', __FILE__)
 require 'fileutils'
 require 'builder'
-require 'pony'
 
 class BuilderRoutes < Sinatra::Base
   set :public_folder, 'public'
@@ -126,7 +125,6 @@ class BuilderRoutes < Sinatra::Base
     # If there is an error send users to the error page and send email about
     # the error to me
     rescue => exception
-      Pony.mail(:to => 'neb636@gmail.com', :from => 'admin@wp-braces.com', :subject => 'Error on braces')
       erb :error
     end
   end
