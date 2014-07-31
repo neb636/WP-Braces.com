@@ -8,16 +8,6 @@
  * @link {%= author_uri %}
  */
 
-{{{VIP}}}
-/**
- * Add VIP functionality
- * @link http://lobby.vip.wordpress.com/getting-started/development-environment/
- */
-require_once( WP_CONTENT_DIR . '/themes/vip/plugins/vip-init.php' );
-wpcom_vip_load_plugin( 'post-meta-inspector' );
-{{{/VIP}}}
-
-
 /**
  * Set the content width based on the theme's design and stylesheet.
  * @link https://codex.wordpress.org/Content_Width
