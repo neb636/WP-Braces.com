@@ -4100,7 +4100,11 @@ footer .row-content.buffer {
 
 @media only screen and (max-width: 500px) {
     #intro-wrap {
-        height: 20em;
+        height: 15em;
+    }
+
+    .column.full {
+        padding: 0 1em
     }
 
     #intro .intro-item {
@@ -5415,3 +5419,4 @@ footer {
 .error-image {
     margin: 0 auto;
 }
+
