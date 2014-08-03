@@ -27,7 +27,7 @@ gulp.task('styles', function() {
 
 gulp.task('watch', function() {
 	// Watch the sass files
-	gulp.watch('public/scss/*.scss', ['styles']);
+	gulp.watch('public/sass/*.scss', ['styles']);
 });
 
 // Make all tasks run and then watch for the rest
