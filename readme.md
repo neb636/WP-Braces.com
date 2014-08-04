@@ -1,3 +1,3 @@
 ## WordPress Custom Base Theme Generator
 
-Sinatra app to generate a custom base theme
+Sinatra app that runs <a href="http://wp-braces.com">wp-braces.com</a>
