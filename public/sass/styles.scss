@@ -153,7 +153,7 @@ html {
 
 body {
     background-color: #fbfbfb;
-    color: #333;
+    color: rgb(111, 111, 111);
     font-size: 1.125em; /* font-size: 18px; */
     font-family: 'Open Sans', sans-serif;
     line-height: 1.8;
@@ -1731,6 +1731,7 @@ section.greyish {
     display: inline-block;
     font-family: 'Montserrat', sans-serif;
     margin-bottom: 0;
+    color: #333;
 }
 
 .call-to-action .button {
@@ -2080,11 +2081,17 @@ section.greyish {
 .comment-form textarea {
     max-width: 100%;
     width: 100%;
+    background-color: #fff;
+    margin-top: 10px;
 }
 
 .contact-section input[type="submit"],
 .comment-form input[type="submit"] {
     float: right;
+}
+
+.form-area {
+    padding-bottom: 50px;
 }
 
 
