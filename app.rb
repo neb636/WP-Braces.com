@@ -133,6 +133,11 @@ class BuilderRoutes < Sinatra::Base
     # If there is an error send users to the error page and send email about
     # the error to me
     rescue => exception
+      Pony.mail :to => 'neb636@gmail.com',
+                :from => "admin@wp-braces.com",
+                :subject => "Page Error",
+                :body => exception
+
       erb :error
     end
   end
