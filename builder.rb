@@ -20,13 +20,13 @@ module Builder
       tag_close = '{{{/' + tag_var + '}}}'
 
       if inverse_delete == true
-        if answer == 'yes' || answer == 'y'
+        if answer == 'yes'
           remove_outer_tags(tag_open, tag_close)
         else
           remove_tags_and_inner_content(tag_open, tag_close)
         end
       else
-        if answer == 'yes' || answer == 'y'
+        if answer == 'yes'
           remove_outer_tags(tag_open, tag_close)
         else
           remove_tags_and_inner_content(tag_open, tag_close)
@@ -60,14 +60,14 @@ module Builder
     # Deletes a file or directory depending on answer.
     def file_or_dir_delete(file_or_directory, answer = "no")
       file_or_directory = $base_theme_directory + file_or_directory
-      if answer == 'no' || answer == 'n'
+      if answer == 'no'
         if File.directory?(file_or_directory)
           FileUtils.rm_rf(file_or_directory)
         else
           File.delete(file_or_directory)
         end
         puts "\n#{file_or_directory} deleted"
-      elsif answer == 'yes' || answer == 'y'
+      elsif answer == 'yes'
         puts "\n#{file_or_directory} kept"
       end
     end
@@ -89,7 +89,7 @@ module Builder
       end
 
       # Put includes into functions.php
-      find_replace_var = {:replacement=>tag_replacement, :original=>tag_to_replace}
+      find_replace_var = { replacement: tag_replacement, original: tag_to_replace }
       write_replace(find_replace_var)
     end
 
@@ -122,8 +122,8 @@ module Builder
         files_array.push(new_file)
 
         # Find and replace variables
-        find_replace_var = {:replacement=>answer, :original=>'{%= post_type_name %}'}
-        find_replace_var_capitalize = {:replacement=>answer.capitalize, :original=>'{%= post_type_name_capitalize %}'}
+        find_replace_var = { replacement: answer, original: '{%= post_type_name %}' }
+        find_replace_var_capitalize = { replacement: answer.capitalize, original: '{%= post_type_name_capitalize %}' }
 
         write_replace(find_replace_var, original_file)
         write_replace(find_replace_var_capitalize, original_file)
