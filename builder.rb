@@ -17,11 +17,13 @@ module Builder
     def check_answer(answer, only_contain = 'default')
       if only_contain == 'default'
         if answer != 'yes' && answer != 'y' && answer != 'no' && answer != 'n'
+          FileUtils.rm_rf($base_theme_directory)
           raise
         end
       else
         # Test answer vs passed in regex
         if answer !~ only_contain
+          FileUtils.rm_rf($base_theme_directory)
           raise
         end
       end

@@ -134,8 +134,8 @@ class BuilderRoutes < Sinatra::Base
     # the error to me
     rescue => exception
       Pony.mail :to => 'neb636@gmail.com',
-                :from => "admin@wp-braces.com",
-                :subject => "Page Error",
+                :from => 'admin@wp-braces.com',
+                :subject => 'WP-Braces Error',
                 :body => exception
 
       erb :error
