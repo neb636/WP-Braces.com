@@ -12,17 +12,19 @@ class BuilderRoutes < Sinatra::Base
 
   post '/basetheme' do
     begin
-      theme_name = params[:theme_name]
-      author_name = params[:author_name]
-      url = params[:url]
+      theme_name = params[:theme_name].gsub('*/', '')
+      author_name = params[:author_name].gsub('*/', '')
+      url = params[:url].gsub('*/', '')
       prefix = params['prefix']
-      description = params[:description]
+      description = params[:description].gsub('*/', '')
       language_support = params[:language_support]
       # custom_post_types = params[:custom_post_types]
       # custom_post_types_number = params[:cpt_number]
       sass = params[:sass]
       compass = params[:compass]
       gulp = params[:gulp]
+
+      url_regex = /((([A-Za-z]{3,9}:(?:\/\/)?)(?:[\-;:&=\+\$,\w]+@)?[A-Za-z0-9\.\-]+|(?:www\.|[\-;:&=\+\$,\w]+@)[A-Za-z0-9\.\-]+)((?:\/[\+~%\/\.\w\-_]*)?\??(?:[\-\+=&;%@\.\w_]*)#?(?:[\.\!\/\\\w]*))?)/
 
       # Create the amount of params for each custom post name
       # if custom_post_types_number > 1
@@ -48,6 +50,7 @@ class BuilderRoutes < Sinatra::Base
       Builder.temp
 
       ## Language Support
+      Builder.check_answer(language_support) # Default checks for yes or no
       Builder.file_or_dir_delete('languages', language_support)
       Builder.tag_replace_delete('LANG', language_support)
 
@@ -61,11 +64,13 @@ class BuilderRoutes < Sinatra::Base
       # end
 
       ## SASS Support
+      Builder.check_answer(sass) # Default checks for yes or no
       Builder.file_or_dir_delete('sass', sass)
       Builder.tag_replace_delete('SASSGULP', sass, true)
 
       if sass == 'y' || sass == 'yes'
         ## Compass Support
+        Builder.check_answer(compass) # Default checks for yes or no
         Builder.tag_replace_delete('COMPASS', compass)
         Builder.tag_replace_delete('GULPCOMPASS', compass, true)
         Builder.tag_replace_delete('GULPNONCOMPASS', compass)
@@ -75,6 +80,7 @@ class BuilderRoutes < Sinatra::Base
       end
 
       ## Gulp Support
+      Builder.check_answer(gulp) # Default checks for yes or no
       Builder.file_or_dir_delete('gulpfile.js', gulp)
       Builder.file_or_dir_delete('package.json', gulp)
       Builder.file_or_dir_delete('javascripts/compiled', gulp)
@@ -92,6 +98,7 @@ class BuilderRoutes < Sinatra::Base
       Builder.write_replace(find_replace_var)
 
       ## Author URI
+      Builder.check_answer(url, url_regex)
       find_replace_var = {:replacement=>url, :original=>'{%= author_uri %}'}
       Builder.write_replace(find_replace_var)
 
@@ -100,6 +107,7 @@ class BuilderRoutes < Sinatra::Base
       Builder.write_replace(find_replace_var)
 
       ## Project Prefix
+      Builder.check_answer(prefix, /^[a-z][a-z_]+[a-z]$/)
       find_replace_var = {:replacement=>prefix, :original=>'{%= prefix %}'}
       find_replace_var_capitalize = {:replacement=>prefix.capitalize, :original=>'{%= prefix_capitalize %}'} # for classes
 

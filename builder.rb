@@ -11,6 +11,20 @@ module Builder
       FileUtils.copy_entry('theme_base', $base_theme_directory)
     end
 
+    # Method used to validate form server side and print error and exit script
+    def check_answer(answer, only_contain = 'default')
+      if only_contain == 'default'
+        if answer != 'yes' && answer != 'y' && answer != 'no' && answer != 'n'
+          raise 'Please try again and type either yes, y, no, or n'
+        end
+      else
+        # Test answer vs passed in regex
+        if answer !~ only_contain
+          raise 'Please try again'
+        end
+      end
+    end
+
     # Used to either keep text between tags or delete it from the template.
     # Tags in theme files are {{{foo}}} {{{/foo}}}
     #

@@ -2073,12 +2073,12 @@ section.greyish {
     padding-left: 1em;
 }
 
-.contact-section input.name,
-.contact-section input.email,
-.contact-section textarea,
-.comment-form input.name,
-.comment-form input.email,
-.comment-form textarea {
+input.name,
+input.email,
+textarea,
+input.name,
+input.email,
+.contact-section textarea {
     max-width: 100%;
     width: 100%;
     background-color: #fff;
@@ -5404,6 +5404,9 @@ footer {
     text-align: center;
     background-color: #42A1B8;
     height: 100%;
+    position: absolute;
+    width: 100%;
+    height: calc(100% - 141px);
 
     h1 {
         padding-top: 1em;
@@ -5423,3 +5426,14 @@ footer {
     margin: 0 auto;
 }
 
+.parsley-required {
+    font-style: italic;
+    color: #ADADAD;
+    font-size: 14px;
+}
+
+.sticky-footer footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+}
