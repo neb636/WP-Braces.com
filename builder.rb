@@ -11,24 +11,6 @@ module Builder
       FileUtils.copy_entry('theme_base', $base_theme_directory)
     end
 
-    # Method used to validate form server side and send to error page if does not match
-    #
-    # TODO: send to different error page for form valid
-    def check_answer(answer, only_contain = 'default')
-      if only_contain == 'default'
-        if answer != 'yes' && answer != 'y' && answer != 'no' && answer != 'n'
-          FileUtils.rm_rf($base_theme_directory)
-          raise
-        end
-      else
-        # Test answer vs passed in regex
-        if answer !~ only_contain
-          FileUtils.rm_rf($base_theme_directory)
-          raise
-        end
-      end
-    end
-
     # Used to either keep text between tags or delete it from the template.
     # Tags in theme files are {{{foo}}} {{{/foo}}}
     #
