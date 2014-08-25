@@ -88,9 +88,9 @@ class BuilderRoutes < Sinatra::Base
   # Sets up gulp support for theme
   def gulp_support(gulp)
     form_validate(gulp)
-    Builder.file_or_dir_delete('gulpfile.js', gulp)
-    Builder.file_or_dir_delete('package.json', gulp)
-    Builder.file_or_dir_delete('javascripts/compiled', gulp)
+    Builder.remove_file_or_dir_if_no('gulpfile.js', gulp)
+    Builder.remove_file_or_dir_if_no('package.json', gulp)
+    Builder.remove_file_or_dir_if_no('javascripts/compiled', gulp)
     Builder.tag_replace_delete('GULP', gulp, true)
     Builder.tag_replace_delete('NONGULP', gulp)
   end
@@ -98,14 +98,14 @@ class BuilderRoutes < Sinatra::Base
   # Sets up language support for theme
   def language_support(language)
     form_validate(language)
-    Builder.file_or_dir_delete('languages', language)
+    Builder.remove_file_or_dir_if_no('languages', language)
     Builder.tag_replace_delete('LANG', language)
   end
 
   # Sets up sass support for theme. If sass is not needed truncate the css file.
   def sass_support(sass)
     form_validate(sass)
-    Builder.file_or_dir_delete('sass', sass)
+    Builder.remove_file_or_dir_if_no('sass', sass)
     Builder.tag_replace_delete('SASSGULP', sass, true)
 
     if sass == 'no'
@@ -132,7 +132,7 @@ class BuilderRoutes < Sinatra::Base
       Builder.tag_replace_delete('COMPASS', compass)
       Builder.tag_replace_delete('GULPCOMPASS', compass, true)
       Builder.tag_replace_delete('GULPNONCOMPASS', compass)
-      Builder.file_or_dir_delete('config.rb', compass)
+      Builder.remove_file_or_dir_if_no('config.rb', compass)
     end
   end
 

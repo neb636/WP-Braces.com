@@ -57,7 +57,7 @@ module Builder
     end
 
     # Deletes a file or directory depending on answer.
-    def file_or_dir_delete(file_or_directory, answer = "no")
+    def remove_file_or_dir_if_no(file_or_directory, answer = "no")
       file_or_directory = $base_theme_directory + file_or_directory
       if answer == 'no'
         if File.directory?(file_or_directory)
@@ -65,9 +65,6 @@ module Builder
         else
           File.delete(file_or_directory)
         end
-        puts "\n#{file_or_directory} deleted"
-      elsif answer == 'yes'
-        puts "\n#{file_or_directory} kept"
       end
     end
 
