@@ -16,20 +16,19 @@ module Builder
     #
     # TODO: Find a better way to inverse code
     def tag_replace_delete(tag_var, answer, inverse_delete = false)
-      tag_open = '{{{' + tag_var + '}}}'
-      tag_close = '{{{/' + tag_var + '}}}'
+      set_tags(tag_var)
 
       if inverse_delete == true
         if answer == 'yes'
-          remove_outer_tags(tag_open, tag_close)
+          remove_outer_tags(@tag_open, @tag_close)
         else
-          remove_tags_and_inner_content(tag_open, tag_close)
+          remove_tags_and_inner_content(@tag_open, @tag_close)
         end
       else
         if answer == 'yes'
-          remove_outer_tags(tag_open, tag_close)
+          remove_outer_tags(@tag_open, @tag_close)
         else
-          remove_tags_and_inner_content(tag_open, tag_close)
+          remove_tags_and_inner_content(@tag_open, @tag_close)
         end
       end
     end
@@ -151,6 +150,12 @@ module Builder
       reg_between = Regexp.new(between, Regexp::IGNORECASE);
       find_replace_var = { original: reg_between, replacement: ''}
       write_replace(find_replace_var)
+    end
+
+    # Sets tags to be used in tag replace delete methods
+    def set_tags(tag_var)
+      @tag_open = '{{{' + tag_var + '}}}'
+      @tag_close = '{{{/' + tag_var + '}}}'
     end
   end
 end
