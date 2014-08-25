@@ -139,8 +139,8 @@ module Builder
 
     # Remove tags from the outside of
     def remove_outer_tags(tag_open, tag_close)
-      delete_open = {:original=>tag_open, :replacement=>''}
-      delete_close = {:original=>tag_close, :replacement=>''}
+      delete_open = { original: tag_open, replacement: ''}
+      delete_close = { original: tag_close, replacement: ''}
       write_replace(delete_open)
       write_replace(delete_close)
     end
@@ -149,7 +149,7 @@ module Builder
     def remove_tags_and_inner_content(tag_open, tag_close)
       between = tag_open + '[\s\S]*?' + tag_close
       reg_between = Regexp.new(between, Regexp::IGNORECASE);
-      find_replace_var = {:original=>reg_between, :replacement=>''}
+      find_replace_var = { original: reg_between, replacement: ''}
       write_replace(find_replace_var)
     end
   end
