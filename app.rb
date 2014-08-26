@@ -31,11 +31,11 @@ class BuilderRoutes < Sinatra::Base
       # custom_post_types = params[:custom_post_types]
       # custom_post_types_number = params[:cpt_number]
 
+      @url_regex = Regexp.new('(https?:\\/\\/)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,4}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)')
+
       # Be naughty and polute the global namespace for convienence
       $base_theme_directory = 'public/temp/theme_1/'
       temp_number = 1
-
-      @url_regex = Regexp.new('(https?:\\/\\/)?(www\\.)?[-a-zA-Z0-9@:%._\\+~#=]{2,256}\\.[a-z]{2,4}\\b([-a-zA-Z0-9@:%_\\+.~#?&//=]*)')
 
       # Change value of $base_theme_directory until the file name does not appear
       until !File.exist?($base_theme_directory)

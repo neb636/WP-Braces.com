@@ -9,6 +9,13 @@ var gulp = require('gulp'),
 	 plumber = require('gulp-plumber'),
 	 gutil = require('gulp-util');
 
+var js_footer = [
+		'public/js/plugins.js',
+		'public/js/beetle.js',
+		'public/js/parsley.js',
+		'public/js/form.js'
+		]
+
 
 // Outputs an error through plumber plugin
 var onError = function (err) {
@@ -25,10 +32,19 @@ gulp.task('styles', function() {
 		.pipe(gulp.dest('public/css/'));
 });
 
+// Footer Scripts
+gulp.task('footer_scripts', function() {
+	gulp.src(js_footer)
+		.pipe(plumber({ errorHandler: onError }))
+		.pipe(concat('footer.js'))
+		.pipe(uglify())
+		.pipe(gulp.dest('public/js/compiled'));
+});
+
 gulp.task('watch', function() {
-	// Watch the sass files
+	gulp.watch('public/js/*.js', ['footer_scripts']);
 	gulp.watch('public/sass/*.scss', ['styles']);
 });
 
 // Make all tasks run and then watch for the rest
-gulp.task('default', ['styles', 'watch']);
+gulp.task('default', ['styles', 'footer_scripts', 'watch']);
