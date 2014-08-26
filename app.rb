@@ -91,7 +91,7 @@ class BuilderRoutes < Sinatra::Base
     Builder.remove_file_or_dir_if_no('gulpfile.js', gulp)
     Builder.remove_file_or_dir_if_no('package.json', gulp)
     Builder.remove_file_or_dir_if_no('javascripts/compiled', gulp)
-    Builder.tag_replace_delete('GULP', gulp, true)
+    Builder.keep_feature_if_yes('GULP', gulp)
     Builder.tag_replace_delete('NONGULP', gulp)
   end
 
@@ -99,7 +99,7 @@ class BuilderRoutes < Sinatra::Base
   def language_support(language)
     form_validate(language)
     Builder.remove_file_or_dir_if_no('languages', language)
-    Builder.tag_replace_delete('LANG', language)
+    Builder.keep_feature_if_yes('LANG', language)
   end
 
   # Sets up sass support for theme. If sass is not needed truncate the css file.
@@ -116,8 +116,9 @@ class BuilderRoutes < Sinatra::Base
   # Sets up custom post support for theme
   def custom_post_type_support(custom_post_types)
     form_validate(custom_post_types)
+
     if custom_post_types == 'yes'
-      Builder.tag_replace_delete('CUSTOM-POSTS', custom_post_types, true)
+      Builder.keep_feature_if_yes('CUSTOM-POSTS', custom_post_types)
       Builder.custom_post_types_create
     else
       FileUtils.rm_rf('extensions/custom-post-types')
@@ -130,7 +131,7 @@ class BuilderRoutes < Sinatra::Base
     if sass == 'yes'
       form_validate(compass)
       Builder.tag_replace_delete('COMPASS', compass)
-      Builder.tag_replace_delete('GULPCOMPASS', compass, true)
+      Builder.keep_feature_if_yes('GULPCOMPASS', compass)
       Builder.tag_replace_delete('GULPNONCOMPASS', compass)
       Builder.remove_file_or_dir_if_no('config.rb', compass)
     end

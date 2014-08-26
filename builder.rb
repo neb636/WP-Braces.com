@@ -13,6 +13,18 @@ module Builder
 
     # Used to either keep text between tags or delete it from the template.
     # Tags in theme files are {{{foo}}} {{{/foo}}}
+    def keep_feature_if_yes(tag_var, answer)
+      set_tags(tag_var)
+
+      if answer == 'yes' || answer == 'y'
+        remove_outer_tags(@tag_open, @tag_close)
+      else
+        remove_tags_and_inner_content(@tag_open, @tag_close)
+      end
+    end
+
+    # Used to either keep text between tags or delete it from the template.
+    # Tags in theme files are {{{foo}}} {{{/foo}}}
     #
     # TODO: Find a better way to inverse code
     def tag_replace_delete(tag_var, answer, inverse_delete = false)
@@ -123,7 +135,6 @@ module Builder
 
         write_replace(find_replace_var, original_file)
         write_replace(find_replace_var_capitalize, original_file)
-        puts "\nCreated #{new_file}"
       end
 
       # Delete original file and add includes into functions.php
