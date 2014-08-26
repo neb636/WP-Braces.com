@@ -11,8 +11,8 @@ module Builder
       FileUtils.copy_entry('theme_base', $base_theme_directory)
     end
 
-    # Used to either keep text between tags or delete it from the template.
-    # Tags in theme files are {{{foo}}} {{{/foo}}}
+    # Used to either keep text between tags or delete it from the template depending
+    # on if the answer is no. Tags in theme files are {{{foo}}} {{{/foo}}}
     def keep_feature_if_yes(tag_var, answer)
       set_tags(tag_var)
 
@@ -23,25 +23,15 @@ module Builder
       end
     end
 
-    # Used to either keep text between tags or delete it from the template.
-    # Tags in theme files are {{{foo}}} {{{/foo}}}
-    #
-    # TODO: Find a better way to inverse code
-    def tag_replace_delete(tag_var, answer, inverse_delete = false)
+    # Used to either keep text between tags or delete it from the template depending
+    # on if the answer is no. Tags in theme files are {{{foo}}} {{{/foo}}}
+    def keep_feature_if_no(tag_var, answer)
       set_tags(tag_var)
 
-      if inverse_delete == true
-        if answer == 'yes'
-          remove_outer_tags(@tag_open, @tag_close)
-        else
-          remove_tags_and_inner_content(@tag_open, @tag_close)
-        end
+      if answer == 'no' || answer == 'n'
+        remove_outer_tags(@tag_open, @tag_close)
       else
-        if answer == 'yes'
-          remove_outer_tags(@tag_open, @tag_close)
-        else
-          remove_tags_and_inner_content(@tag_open, @tag_close)
-        end
+        remove_tags_and_inner_content(@tag_open, @tag_close)
       end
     end
 

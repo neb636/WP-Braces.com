@@ -28,8 +28,8 @@ class BuilderRoutes < Sinatra::Base
       sass = params[:sass]
       compass = params[:compass]
       gulp = params[:gulp]
-      # @custom_post_types = params[:custom_post_types]
-      # @custom_post_types_number = params[:cpt_number]
+      # custom_post_types = params[:custom_post_types]
+      # custom_post_types_number = params[:cpt_number]
 
       # Be naughty and polute the global namespace for convienence
       $base_theme_directory = 'public/temp/theme_1/'
@@ -92,7 +92,7 @@ class BuilderRoutes < Sinatra::Base
     Builder.remove_file_or_dir_if_no('package.json', gulp)
     Builder.remove_file_or_dir_if_no('javascripts/compiled', gulp)
     Builder.keep_feature_if_yes('GULP', gulp)
-    Builder.tag_replace_delete('NONGULP', gulp)
+    Builder.keep_feature_if_no('NONGULP', gulp)
   end
 
   # Sets up language support for theme
@@ -106,7 +106,6 @@ class BuilderRoutes < Sinatra::Base
   def sass_support(sass)
     form_validate(sass)
     Builder.remove_file_or_dir_if_no('sass', sass)
-    Builder.tag_replace_delete('SASSGULP', sass, true)
 
     if sass == 'no'
       File.open('public/temp/theme_1/css/styles.css', 'w') { |file| file.truncate(0) } # Empty contents of css file
@@ -117,22 +116,17 @@ class BuilderRoutes < Sinatra::Base
   def custom_post_type_support(custom_post_types)
     form_validate(custom_post_types)
 
-    if custom_post_types == 'yes'
-      Builder.keep_feature_if_yes('CUSTOM-POSTS', custom_post_types)
-      Builder.custom_post_types_create
-    else
-      FileUtils.rm_rf('extensions/custom-post-types')
-      Builder.tag_replace_delete('CUSTOM-POSTS', 'n')
-    end
+    Builder.keep_feature_if_yes('CUSTOM-POSTS', custom_post_types)
+    Builder.custom_post_types_create_if_yes(custom_post_types)
+    Builder.remove_file_or_dir_if_no('extensions/custom-post-types', custom_post_types)
   end
 
   # Only set up compass if sass and compass is yes
   def compass_support(sass, compass)
     if sass == 'yes'
       form_validate(compass)
-      Builder.tag_replace_delete('COMPASS', compass)
       Builder.keep_feature_if_yes('GULPCOMPASS', compass)
-      Builder.tag_replace_delete('GULPNONCOMPASS', compass)
+      Builder.keep_feature_if_no('SASSGULP', compass)
       Builder.remove_file_or_dir_if_no('config.rb', compass)
     end
   end
