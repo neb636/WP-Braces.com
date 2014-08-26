@@ -21,8 +21,8 @@ class BuilderRoutes < Sinatra::Base
     begin
       theme_name = params[:theme_name].gsub('*/', '')
       author_name = params[:author_name].gsub('*/', '')
-      url = params[:url].gsub('*/', '')
-      prefix = params['prefix']
+      author_url = params[:author_url].gsub('*/', '')
+      theme_url = params[:theme_url].gsub('*/', '')
       description = params[:description].gsub('*/', '')
       language = params[:language_support]
       sass = params[:sass]
@@ -53,9 +53,9 @@ class BuilderRoutes < Sinatra::Base
       gulp_support(gulp)
       theme_name_write(theme_name)
       author_name_write(author_name)
-      author_uri_write(url)
-      theme_uri_write(url)
-      project_prefix_write(prefix)
+      author_url_write(author_url)
+      theme_url_write(theme_url)
+      project_prefix_write(theme_name)
       theme_description_write(description)
 
       # Zip and save as variable
@@ -73,6 +73,8 @@ class BuilderRoutes < Sinatra::Base
     # If there is an error send users to the error page and send email about
     # the error to me
     rescue => exception
+
+      FileUtils.rm_rf($base_theme_directory)
 
       Pony.mail :to => 'neb636@gmail.com',
                 :from => 'admin@wp-braces.com',
@@ -134,6 +136,7 @@ class BuilderRoutes < Sinatra::Base
   # Sets up prefix for theme and has custom error message
   def project_prefix_write(prefix)
     @@error_message = "#{prefix} is not a valid prefix. Please go back and try again."
+    prefix = prefix.gsub(' ', '_').gsub('-', '_').downcase
     form_validate(prefix, /^[a-z][a-z_]+[a-z]$/)
 
     find_replace_var = { replacement: prefix, original: '{%= prefix %}'}
@@ -167,19 +170,20 @@ class BuilderRoutes < Sinatra::Base
   end
 
   # Sets up theme uri and has a custom error message
-  def theme_uri_write(url)
-    @@error_message = "#{url} is not a valid URL. Please go back and try again."
-    form_validate(url, @url_regex)
+  def theme_url_write(theme_url)
+    @@error_message = "#{theme_urlh} is not a valid URL. Please go back and try again."
+    form_validate(theme_url, @url_regex)
 
-    find_replace_var = { replacement: url, original: '{%= theme_uri %}'}
+    find_replace_var = { replacement: theme_url, original: '{%= theme_uri %}'}
     Builder.write_replace(find_replace_var)
   end
 
   # Sets up author uri and has a custom error message
-  def author_uri_write(url)
-    @@error_message = "#{url} is not a valid URL. Please go back and try again."
-    form_validate(url, @url_regex)
-    find_replace_var = { replacement: url, original: '{%= author_uri %}'}
+  def author_url_write(author_url)
+    @@error_message = "#{author_url} is not a valid URL. Please go back and try again."
+    form_validate(author_url, @url_regex)
+
+    find_replace_var = { replacement: author_url, original: '{%= author_uri %}'}
     Builder.write_replace(find_replace_var)
   end
 
