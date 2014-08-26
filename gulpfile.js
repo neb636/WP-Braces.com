@@ -28,6 +28,7 @@ var erb_files = [
 
 var ignore_css = [
 		/.fixed-header/,
+		/.active/,
 		'.skrollable',
 		'.skrollable-after',
 		'.js',
