@@ -73,14 +73,7 @@ class BuilderRoutes < Sinatra::Base
     # If there is an error send users to the error page and send email about
     # the error to me
     rescue => exception
-
       FileUtils.rm_rf($base_theme_directory)
-
-      Pony.mail :to => 'neb636@gmail.com',
-                :from => 'admin@wp-braces.com',
-                :subject => 'WP-Braces Error',
-                :body => exception
-
       erb :error
     end
   end
@@ -171,7 +164,7 @@ class BuilderRoutes < Sinatra::Base
 
   # Sets up theme uri and has a custom error message
   def theme_url_write(theme_url)
-    @@error_message = "#{theme_urlh} is not a valid URL. Please go back and try again."
+    @@error_message = "#{theme_url} is not a valid URL. Please go back and try again."
     form_validate(theme_url, @url_regex)
 
     find_replace_var = { replacement: theme_url, original: '{%= theme_uri %}'}
