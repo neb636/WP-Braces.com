@@ -3,23 +3,23 @@
 /**
  * Structure Elements
  */
-#page {
+.page {
 	margin: 0 auto;
 	width: 90%;
 }
 
-#content {
+.content {
 	@include clearfix();
-	#primary {
+	.content-area {
 		float: left;
 		width: 70%;
 	}
-	#secondary {
+	.secondary {
 		float: right;
 		width: 30%;
 	}
 }
 
-#footer {
+.footer {
 
 }

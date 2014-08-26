@@ -1,13 +1,20 @@
 // Plugins
-var gulp = require('gulp');
-		watch = require('gulp-watch');
-		sass = require('gulp-ruby-sass');
-		autoprefixer = require('gulp-autoprefixer');
-		concat = require('gulp-concat');
-		uglify = require('gulp-uglify');
-		rem = require('gulp-pixrem');
-		compass = require('gulp-compass');
+var gulp = require('gulp'),
+	 watch = require('gulp-watch'),
+	 sass = require('gulp-ruby-sass'),
+	 autoprefixer = require('gulp-autoprefixer'),
+	 concat = require('gulp-concat'),
+	 uglify = require('gulp-uglify'),
+	 rem = require('gulp-pixrem'),
+	 compass = require('gulp-compass'),
+	 plumber = require('gulp-plumber'),
+	 gutil = require('gulp-util');
 
+// Outputs an error through plumber plugin
+var onError = function (err) {
+  gutil.beep();
+  console.log(err);
+};
 
 // Order in which js files should be processed
 var footer_js_order = [
@@ -17,17 +24,29 @@ var footer_js_order = [
 		'javascripts/skip-link-focus-fix.js'
 	];
 
-var header_js_order = [ 'javascripts/modernizr.js' ];{{{SASSGULP}}}
+var header_js_order = [ 'javascripts/modernizr.js' ];
 
+{{{GULPCOMPASS}}}
 // Styles
 gulp.task('styles', function() {
-	gulp.src('sass/styles.scss'){{{GULPCOMPASS}}}
+	gulp.src('sass/styles.scss')
+		.pipe(plumber({ errorHandler: onError }))
 		.pipe(compass({
 				config_file: './config.rb',
 				css: 'css',
 				sass: 'sass'
-		})){{{/GULPCOMPASS}}}{{{GULPNONCOMPASS}}}
-		.pipe(sass({style: 'compressed'})){{{/GULPNONCOMPASS}}}
+		}))
+		.pipe(autoprefixer('last 1 version', '> 1%', 'ie 9', 'ie 8', 'ie 7'))
+		.pipe(rem())
+		.pipe(gulp.dest('css/'));
+});{{{/GULPCOMPASS}}}
+
+{{{SASSGULP}}}
+// Styles
+gulp.task('styles', function() {
+	gulp.src('sass/styles.scss')
+		.pipe(plumber({ errorHandler: onError }))
+		.pipe(sass({style: 'compressed'}))
 		.pipe(autoprefixer('last 1 version', '> 1%', 'ie 9', 'ie 8', 'ie 7'))
 		.pipe(rem())
 		.pipe(gulp.dest('css/'));
@@ -36,6 +55,7 @@ gulp.task('styles', function() {
 // Footer Scripts
 gulp.task('footer_scripts', function() {
 	gulp.src(footer_js_order)
+		.pipe(plumber({ errorHandler: onError }))
 		.pipe(concat('footer.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('javascripts/compiled'));
@@ -44,6 +64,7 @@ gulp.task('footer_scripts', function() {
 // Header Scripts
 gulp.task('header_scripts', function() {
 	gulp.src(header_js_order)
+		.pipe(plumber({ errorHandler: onError }))
 		.pipe(concat('header.js'))
 		.pipe(uglify())
 		.pipe(gulp.dest('javascripts/compiled'));

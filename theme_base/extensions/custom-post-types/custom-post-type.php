@@ -11,53 +11,65 @@
 
 class {%= prefix_capitalize %}_Custom_{%= post_type_name_capitalize %} {
 
-	function __construct() {
-		add_action( 'init', array( $this, 'action_init' ) );
+	/**
+	 * Constants
+	 */
+	const POST_TYPE_SLUG             = '{%= post_type_name %}';
+	const POST_TYPE_NAME             = '{%= post_type_name_capitalize %}';
+	const POST_TYPE_SINGULAR         = '{%= post_type_name_capitalize %}s';
+	const POST_TYPE_CAP              = 'post';
+
+	// Define and register singleton
+	private static $instance = false;
+	public static function instance() {
+		if ( !self::$instance ) {
+			self::$instance = new self;
+		}
+		return self::$instance;
+	}
+
+	/**
+	 * Clone
+	 *
+	 * @since 1.0.0
+	 */
+	private function __clone() { }
+
+	/**
+	 * Constructor
+	 *
+	 * @since 1.0.0
+	 */
+	private function __construct() {
+		add_action( 'init', array( $this, 'action_init_register_post_type' ) );
 	}
 
 	/**
 	 * Register {%= post_type_name %} post type
 	 * @return void
 	 */
-	function action_init() {
-		$labels = array(
-			'name'               => _x('{%= post_type_name_capitalize %}', '{%= post_type_name %}'),
-			'singular_name'      => _x('{%= post_type_name_capitalize %}', '{%= post_type_name %}'),
-			'add_new'            => _x('Add New', '{%= post_type_name %}'),
-			'add_new_item'       => __('Add New {%= post_type_name_capitalize %}'),
-			'edit_item'          => __('Edit {%= post_type_name_capitalize %}'),
-			'new_item'           => __('New {%= post_type_name_capitalize %}'),
-			'all_items'          => __('All {%= post_type_name_capitalize %}'),
-			'view_item'          => __('View {%= post_type_name_capitalize %}'),
-			'search_items'       => __('Search {%= post_type_name_capitalize %}'),
-			'not_found'          => __('No {%= post_type_name_capitalize %} found'),
-			'not_found_in_trash' => __('No {%= post_type_name_capitalize %} found in Trash'),
-			'parent_item_colon'  => '',
-			'menu_name'          => '{%= post_type_name %}'
-
-			);
-		$args = array(
-			'labels'             => $labels,
-			'public'             => true,
-			'publicly_queryable' => true,
-			'show_ui'            => true,
-			'show_in_menu'       => true,
-			'query_var'          => true,
-			'rewrite'            => true,
-			'capability_type'    => 'post',
-			'has_archive'        => true,
-			'hierarchical'       => false,
-			'menu_position'      => 20,
-			'supports'           => array( 'title', 'page-attributes', 'editor', 'thumbnail' ),
-			'rewrite'            => array ( 'slug' => '{%= post_type_name %}', 'with_front' => false ),
-			'taxonomies'         => array (
-				0 => 'category',
-				1 => 'post_tag',
+	function action_init_register_post_type() {
+		register_post_type( self::POST_TYPE_SLUG, array(
+			'labels' => array(
+				'name'          => __( self::POST_TYPE_NAME ),
+				'singular_name' => __( self::POST_TYPE_SINGULAR ),
+				'add_new_item'  => __( 'Add New ' . self::POST_TYPE_SINGULAR ),
+				'edit_item'     => __( 'Edit ' . self::POST_TYPE_SINGULAR ),
+				'new_item'      => __( 'New ' . self::POST_TYPE_SINGULAR ),
+				'all_items'     => __( self::POST_TYPE_NAME ),
+				'view_item'     => __( 'View ' . self::POST_TYPE_SINGULAR ),
+				'search_items'  => __( 'Search' . self::POST_TYPE_NAME ),
 			),
-		);
-
-		register_post_type('{%= post_type_name %}', $args);
+			'public'          => true,
+			'capability_type' => self::POST_TYPE_CAP,
+			'has_archive'     => true,
+			'show_ui'         => true,
+			'show_in_menu'    => true,
+			'hierarchical'    => false,
+			'supports'        => array( 'title' ),
+			'menu_position'   => 16,
+		) );
 	}
 }
 
-$custom_{%= post_type_name %} = new {%= prefix_capitalize %}_Custom_{%= post_type_name_capitalize %}();
+{%= prefix_capitalize %}_Custom_{%= post_type_name_capitalize %}::instance();
