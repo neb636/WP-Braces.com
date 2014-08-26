@@ -30,6 +30,7 @@ var ignore_css = [
 		/.fixed-header/,
 		/.active/,
 		/.sticky-footer/,
+		/parsley/,
 		'.skrollable',
 		'.skrollable-after',
 		'.js',
