@@ -5,17 +5,44 @@ var gulp = require('gulp'),
 	 concat = require('gulp-concat'),
 	 sass = require('gulp-ruby-sass'),
 	 uglify = require('gulp-uglify'),
-	 uncss = require('gulp-uncss');
+	 uncss = require('gulp-uncss'),
 	 plumber = require('gulp-plumber'),
-	 gutil = require('gulp-util');
+	 gutil = require('gulp-util'),
+	 mincss = require('gulp-minify-css');
 
 var js_footer = [
 		'public/js/plugins.js',
 		'public/js/beetle.js',
 		'public/js/parsley.js',
 		'public/js/form.js'
-		]
+	]
 
+var erb_files = [
+		'views/header.erb',
+		'views/error.erb',
+		'views/form_validate.erb',
+		'views/footer.erb',
+		'views/form.erb',
+		'views/index.erb'
+	]
+
+var ignore_css = [
+		/.fixed-header/,
+		'.skrollable',
+		'.skrollable-after',
+		'.js',
+		'.flexbox',
+		'.backgroundsize',
+		'.borderradius',
+		'.boxshadow',
+		'.cssanimations',
+		'.csstransforms',
+		'.csstransforms3d',
+		'.csstransitions',
+		'.svg',
+		'.skrollr',
+		'.skrollr-desktop'
+	]
 
 // Outputs an error through plumber plugin
 var onError = function (err) {
@@ -27,8 +54,13 @@ var onError = function (err) {
 gulp.task('styles', function() {
 	gulp.src('public/sass/styles.scss')
 		.pipe(plumber({ errorHandler: onError }))
-		.pipe(sass({style: 'compressed', sourcemap: true}))
+		.pipe(sass({style: 'compressed'}))
 		.pipe(autoprefixer('last 1 version', '> 1%', 'ie 9', 'ie 8', 'ie 7'))
+		.pipe(uncss({
+         html: erb_files,
+         ignore: ignore_css
+      }))
+      .pipe(mincss())
 		.pipe(gulp.dest('public/css/'));
 });
 
