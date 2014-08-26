@@ -39,7 +39,7 @@ module Builder
     def write_replace(find_replace_var, skip = 'none')
 
       # First set the file locations only if the correct extension
-      files = Dir.glob("#{$base_theme_directory}/**.{php,css,txt,scss,js,json}")
+      files = Dir.glob("#{$base_theme_directory}/**/**.{php,css,txt,scss,js,json}")
 
       files.each do |file_name|
 
