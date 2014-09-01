@@ -17,6 +17,11 @@ class BuilderRoutes < Sinatra::Base
     erb :form_validate, locals: { error_message: @@error_message }
   end
 
+  not_found do
+    status 404
+    erb :form_validate, locals: { error_message: '404' }
+  end
+
   post '/basetheme' do
     begin
       theme_name = params[:theme_name].gsub('*/', '')
