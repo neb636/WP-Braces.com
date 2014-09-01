@@ -23,7 +23,7 @@ class BuilderRoutes < Sinatra::Base
   end
 
   post '/basetheme' do
-    #begin
+    begin
       theme_name = params[:theme_name].gsub('*/', '')
       author_name = params[:author_name].gsub('*/', '')
       author_url = params[:author_url].gsub('*/', '')
@@ -75,9 +75,9 @@ class BuilderRoutes < Sinatra::Base
 
     # If there is an error send users to the error page and send email about
     # the error to me
-    # rescue => exception
-    #   FileUtils.rm_rf($base_theme_directory)
-    #   erb :error
-    # end
+    rescue => exception
+      FileUtils.rm_rf($base_theme_directory)
+      erb :error
+    end
   end
 end
