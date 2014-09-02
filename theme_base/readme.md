@@ -11,16 +11,3 @@ Why Braces?
 ---------------
 
 Braces alters the typical WP PHP loop syntax for a more [PHP coding standards] (http://make.wordpress.org/core/handbook/coding-standards/php/) approach using more, well, "braces".
-
-Getting Started
----------------
-
-To run the dynamic theme build you need Ruby 2.1.0 or higher
-
-To start the build process cd into the top level of this theme and type "ruby builder.rb"
-
-To learn more about Gulp please go to https://github.com/gulpjs/gulp/blob/master/README.md
-
-Now you're ready to go! The next step is easy to say, but harder to do: make an awesome WordPress theme. :)
-
-Good luck!
