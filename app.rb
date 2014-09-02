@@ -41,9 +41,6 @@ class BuilderRoutes < Sinatra::Base
       File.delete("public/temp/builder_theme#{@temp_number}.zip")
       FileUtils.rm_rf($base_theme_directory)
 
-      # Return the content so it starts auto download
-
-
     # If there is an error send users to the error page and send email about
     # the error to me
     rescue => exception
