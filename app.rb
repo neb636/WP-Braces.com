@@ -1,8 +1,8 @@
 # app.rb
 $:.push File.expand_path('../', __FILE__)
 require 'fileutils'
-require 'builder'
-require 'questions'
+require 'lib/builder'
+require 'lib/questions'
 
 class BuilderRoutes < Sinatra::Base
   set :public_folder, 'public'
