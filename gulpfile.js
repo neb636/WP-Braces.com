@@ -11,6 +11,7 @@ var gulp = require('gulp'),
 	 mincss = require('gulp-minify-css');
 
 var js_footer = [
+		'public/js/jquery-2.1.1.min.js',
 		'public/js/plugins.js',
 		'public/js/beetle.js',
 		'public/js/parsley.js',
