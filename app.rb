@@ -41,8 +41,7 @@ class BuilderRoutes < Sinatra::Base
       File.delete("public/temp/builder_theme#{@temp_number}.zip")
       FileUtils.rm_rf($base_theme_directory)
 
-    # If there is an error send users to the error page and send email about
-    # the error to me
+    # If there is an error send users to the error page
     rescue => exception
       FileUtils.rm_rf($base_theme_directory)
       erb :error
