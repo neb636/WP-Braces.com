@@ -15,7 +15,7 @@ module Builder
   def keep_feature_if_yes(tag_var, answer)
     set_tags(tag_var)
 
-    if answer == 'yes' || answer == 'y'
+    if answer == 'yes'
       remove_outer_tags(@tag_open, @tag_close)
     else
       remove_tags_and_inner_content(@tag_open, @tag_close)
@@ -27,7 +27,7 @@ module Builder
   def keep_feature_if_no(tag_var, answer)
     set_tags(tag_var)
 
-    if answer == 'no' || answer == 'n'
+    if answer == 'no'
       remove_outer_tags(@tag_open, @tag_close)
     else
       remove_tags_and_inner_content(@tag_open, @tag_close)
