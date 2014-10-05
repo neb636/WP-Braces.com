@@ -1,159 +1,157 @@
 module Builder
+  extend self
 
-  class << self
+  require 'rubygems'
+  require 'fileutils'
+  require 'zip'
 
-    require 'rubygems'
-    require 'fileutils'
-    require 'zip'
+  # Copy theme to temp folder
+  def temp
+    FileUtils.copy_entry('theme_base', $base_theme_directory)
+  end
 
-    # Copy theme to temp folder
-    def temp
-      FileUtils.copy_entry('theme_base', $base_theme_directory)
+  # Used to either keep text between tags or delete it from the template depending
+  # on if the answer is no. Tags in theme files are {{{foo}}} {{{/foo}}}
+  def keep_feature_if_yes(tag_var, answer)
+    set_tags(tag_var)
+
+    if answer == 'yes' || answer == 'y'
+      remove_outer_tags(@tag_open, @tag_close)
+    else
+      remove_tags_and_inner_content(@tag_open, @tag_close)
     end
+  end
 
-    # Used to either keep text between tags or delete it from the template depending
-    # on if the answer is no. Tags in theme files are {{{foo}}} {{{/foo}}}
-    def keep_feature_if_yes(tag_var, answer)
-      set_tags(tag_var)
+  # Used to either keep text between tags or delete it from the template depending
+  # on if the answer is no. Tags in theme files are {{{foo}}} {{{/foo}}}
+  def keep_feature_if_no(tag_var, answer)
+    set_tags(tag_var)
 
-      if answer == 'yes' || answer == 'y'
-        remove_outer_tags(@tag_open, @tag_close)
+    if answer == 'no' || answer == 'n'
+      remove_outer_tags(@tag_open, @tag_close)
+    else
+      remove_tags_and_inner_content(@tag_open, @tag_close)
+    end
+  end
+
+  # Loop through every file and perform search and replace
+  def write_replace(find_replace_var, skip = 'none')
+
+    # First set the file locations only if the correct extension
+    files = Dir.glob("#{$base_theme_directory}/**/**.{php,css,txt,scss,js,json}")
+
+    files.each do |file_name|
+
+      # Skip if file passed into method
+      # TODO: Find more efficient way to skip the node_modules folder
+
+      if skip != 'none'
+        next if file_name == skip
+      end
+
+      next if file_name =~ /node_modules/i
+
+      text = File.read(file_name)
+      replace = text.gsub(find_replace_var[:original], find_replace_var[:replacement])
+      File.open(file_name, 'w') { |file| file.puts replace }
+    end
+  end
+
+  # Deletes a file or directory depending on answer.
+  def remove_file_or_dir_if_no(file_or_directory, answer = "no")
+    file_or_directory = $base_theme_directory + file_or_directory
+    if answer == 'no'
+      if File.directory?(file_or_directory)
+        FileUtils.rm_rf(file_or_directory)
       else
-        remove_tags_and_inner_content(@tag_open, @tag_close)
+        File.delete(file_or_directory)
       end
     end
+  end
 
-    # Used to either keep text between tags or delete it from the template depending
-    # on if the answer is no. Tags in theme files are {{{foo}}} {{{/foo}}}
-    def keep_feature_if_no(tag_var, answer)
-      set_tags(tag_var)
+  # Builds file includes string and calls write_replace method
+  def file_includes(files_array, tag_to_replace)
+    tag_replacement = ''
 
-      if answer == 'no' || answer == 'n'
-        remove_outer_tags(@tag_open, @tag_close)
+    files_array.each_with_index do |file, index|
+
+      # Move to new line if not the first file
+      if index == 0
+        file_place = "require get_template_directory() . '/" + file + "';"
       else
-        remove_tags_and_inner_content(@tag_open, @tag_close)
-      end
-    end
-
-    # Loop through every file and perform search and replace
-    def write_replace(find_replace_var, skip = 'none')
-
-      # First set the file locations only if the correct extension
-      files = Dir.glob("#{$base_theme_directory}/**/**.{php,css,txt,scss,js,json}")
-
-      files.each do |file_name|
-
-        # Skip if file passed into method
-        # TODO: Find more efficient way to skip the node_modules folder
-
-        if skip != 'none'
-          next if file_name == skip
-        end
-
-        next if file_name =~ /node_modules/i
-
-        text = File.read(file_name)
-        replace = text.gsub(find_replace_var[:original], find_replace_var[:replacement])
-        File.open(file_name, 'w') { |file| file.puts replace }
-      end
-    end
-
-    # Deletes a file or directory depending on answer.
-    def remove_file_or_dir_if_no(file_or_directory, answer = "no")
-      file_or_directory = $base_theme_directory + file_or_directory
-      if answer == 'no'
-        if File.directory?(file_or_directory)
-          FileUtils.rm_rf(file_or_directory)
-        else
-          File.delete(file_or_directory)
-        end
-      end
-    end
-
-    # Builds file includes string and calls write_replace method
-    def file_includes(files_array, tag_to_replace)
-      tag_replacement = ''
-
-      files_array.each_with_index do |file, index|
-
-        # Move to new line if not the first file
-        if index == 0
-          file_place = "require get_template_directory() . '/" + file + "';"
-        else
-          file_place = "\nrequire get_template_directory() . '/" + file + "';"
-        end
-
-        tag_replacement = tag_replacement + file_place
+        file_place = "\nrequire get_template_directory() . '/" + file + "';"
       end
 
-      # Put includes into functions.php
-      find_replace_var = { replacement: tag_replacement, original: tag_to_replace }
-      write_replace(find_replace_var)
+      tag_replacement = tag_replacement + file_place
     end
 
-    # Zips the files up
-    def zip_file(temp_number)
-      zipfile_name = "public/temp/builder_theme#{temp_number}.zip"
+    # Put includes into functions.php
+    find_replace_var = { replacement: tag_replacement, original: tag_to_replace }
+    write_replace(find_replace_var)
+  end
 
-      Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
-        Dir[File.join($base_theme_directory, '**', '**')].each do |file|
-          zipfile.add(file.sub($base_theme_directory, ''), file)
-        end
+  # Zips the files up
+  def zip_file(temp_number)
+    zipfile_name = "public/temp/builder_theme#{temp_number}.zip"
+
+    Zip::File.open(zipfile_name, Zip::File::CREATE) do |zipfile|
+      Dir[File.join($base_theme_directory, '**', '**')].each do |file|
+        zipfile.add(file.sub($base_theme_directory, ''), file)
       end
     end
+  end
 
-    # Creates custom post types if needed by asking how many and then asking for a name. If no
-    # custom post type is needed the custom post type folder is deleted. This method needs lots of refactoring.
-    #
-    # TODO: Make this not specific to CPT's but to files that can be created more than once
-    def custom_post_types_create(custom_post_types_array)
+  # Creates custom post types if needed by asking how many and then asking for a name. If no
+  # custom post type is needed the custom post type folder is deleted. This method needs lots of refactoring.
+  #
+  # TODO: Make this not specific to CPT's but to files that can be created more than once
+  def custom_post_types_create(custom_post_types_array)
 
-      original_file = $base_theme_directory + 'extensions/custom-post-types/custom-post-type.php'
-      files_array = Array.new
-      index = 0
+    original_file = $base_theme_directory + 'extensions/custom-post-types/custom-post-type.php'
+    files_array = Array.new
+    index = 0
 
-      custom_post_types_array.each do |cpt_name|
-        new_file = $base_theme_directory + 'extensions/custom-post-types/' + answer.gsub(' ', '-') + '-post-type-class.php'
+    custom_post_types_array.each do |cpt_name|
+      new_file = $base_theme_directory + 'extensions/custom-post-types/' + answer.gsub(' ', '-') + '-post-type-class.php'
 
-        # Push files into files array for includes later
-        FileUtils.cp(original_file, new_file)
-        files_array.push(new_file)
+      # Push files into files array for includes later
+      FileUtils.cp(original_file, new_file)
+      files_array.push(new_file)
 
-        # Find and replace variables
-        find_replace_var = { replacement: answer, original: '{%= post_type_name %}' }
-        find_replace_var_capitalize = { replacement: answer.capitalize, original: '{%= post_type_name_capitalize %}' }
+      # Find and replace variables
+      find_replace_var = { replacement: answer, original: '{%= post_type_name %}' }
+      find_replace_var_capitalize = { replacement: answer.capitalize, original: '{%= post_type_name_capitalize %}' }
 
-        write_replace(find_replace_var, original_file)
-        write_replace(find_replace_var_capitalize, original_file)
-      end
-
-      # Delete original file and add includes into functions.php
-      File.delete(original_file)
-      file_includes(files_array, '{%= post_type_include %}')
+      write_replace(find_replace_var, original_file)
+      write_replace(find_replace_var_capitalize, original_file)
     end
 
-    private
+    # Delete original file and add includes into functions.php
+    File.delete(original_file)
+    file_includes(files_array, '{%= post_type_include %}')
+  end
 
-    # Remove tags from the outside of
-    def remove_outer_tags(tag_open, tag_close)
-      delete_open = { original: tag_open, replacement: ''}
-      delete_close = { original: tag_close, replacement: ''}
-      write_replace(delete_open)
-      write_replace(delete_close)
-    end
+  private
 
-    # Remove tags and the inner content
-    def remove_tags_and_inner_content(tag_open, tag_close)
-      between = tag_open + '[\s\S]*?' + tag_close
-      reg_between = Regexp.new(between, Regexp::IGNORECASE);
-      find_replace_var = { original: reg_between, replacement: ''}
-      write_replace(find_replace_var)
-    end
+  # Remove tags from the outside of
+  def remove_outer_tags(tag_open, tag_close)
+    delete_open = { original: tag_open, replacement: ''}
+    delete_close = { original: tag_close, replacement: ''}
+    write_replace(delete_open)
+    write_replace(delete_close)
+  end
 
-    # Sets tags to be used in tag replace delete methods
-    def set_tags(tag_var)
-      @tag_open = '{{{' + tag_var + '}}}'
-      @tag_close = '{{{/' + tag_var + '}}}'
-    end
+  # Remove tags and the inner content
+  def remove_tags_and_inner_content(tag_open, tag_close)
+    between = tag_open + '[\s\S]*?' + tag_close
+    reg_between = Regexp.new(between, Regexp::IGNORECASE);
+    find_replace_var = { original: reg_between, replacement: ''}
+    write_replace(find_replace_var)
+  end
+
+  # Sets tags to be used in tag replace delete methods
+  def set_tags(tag_var)
+    @tag_open = '{{{' + tag_var + '}}}'
+    @tag_close = '{{{/' + tag_var + '}}}'
   end
 end
