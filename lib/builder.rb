@@ -1,3 +1,4 @@
+# Various methods for search/replace, deleting/renaming files and more
 module Builder
   extend self
 
@@ -52,7 +53,7 @@ module Builder
       next if file_name =~ /node_modules/i
 
       text = File.read(file_name)
-      replace = text.gsub(find_replace_var[:original], find_replace_var[:replacement])
+      replace = text.gsub(find_replace_var.fetch(:original), find_replace_var.fetch(:replacement))
       File.open(file_name, 'w') { |file| file.puts replace }
     end
   end
