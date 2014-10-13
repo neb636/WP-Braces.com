@@ -35,11 +35,16 @@ class BuilderRoutes < Sinatra::Base
       load_questions
 
       # Zip and save as variable
-      zip_and_send_files
+      Builder.zip_file(@temp_number)
+      content_type(:zip)
+      content = File.read("public/temp/builder_theme#{@temp_number}.zip")
 
       # Delete temp files created
       File.delete("public/temp/builder_theme#{@temp_number}.zip")
       FileUtils.rm_rf($base_theme_directory)
+
+      # Return the content so it starts auto download
+      content
 
     # If there is an error send users to the error page
     rescue => exception
@@ -74,12 +79,6 @@ class BuilderRoutes < Sinatra::Base
       @temp_number = @temp_number + 1
       $base_theme_directory = 'public/temp/theme_' + @temp_number.to_s + '/'
     end
-  end
-
-  def zip_and_send_files
-    Builder.zip_file(@temp_number)
-    content_type(:zip)
-    File.read("public/temp/builder_theme#{@temp_number}.zip")
   end
 
   def load_questions

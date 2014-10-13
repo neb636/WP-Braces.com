@@ -50,8 +50,9 @@ GEM
     rb-fsevent (0.9.4)
     rb-inotify (0.9.4)
       ffi (>= 0.5.0)
+    rerun (0.10.0)
+      listen (~> 2.7, >= 2.7.3)
     rubyzip (1.1.4)
-    sendfile (1.2.1)
     sinatra (1.4.4)
       rack (~> 1.4)
       rack-protection (~> 1.4)
@@ -73,6 +74,6 @@ DEPENDENCIES
   guard-bundler
   guard-rack
   pony
+  rerun
   rubyzip (>= 1.0.0)
-  sendfile (~> 1.2.1)
   sinatra
