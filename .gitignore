@@ -4,6 +4,7 @@ node_modules
 public/temp
 .idea
 .bundle
+client_secrets.yml
 
 # OS generated files #
 ######################

@@ -4,6 +4,7 @@ GEM
     celluloid (0.15.2)
       timers (~> 1.1.0)
     coderay (1.1.0)
+    excon (0.42.1)
     ffi (1.9.3)
     ffi (1.9.3-x86-mingw32)
     formatador (0.2.5)
@@ -22,6 +23,7 @@ GEM
       libnotify
       rb-inotify
       spoon
+    json (1.8.1)
     libnotify (0.8.3)
       ffi (>= 1.0.11)
     listen (2.7.5)
@@ -29,12 +31,10 @@ GEM
       rb-fsevent (>= 0.9.3)
       rb-inotify (>= 0.9)
     lumberjack (1.0.6)
-    mail (2.6.1)
-      mime-types (>= 1.16, < 3)
+    mandrill-api (1.0.53)
+      excon (>= 0.16.0, < 1.0)
+      json (>= 1.7.7, < 2.0)
     method_source (0.8.2)
-    mime-types (2.3)
-    pony (1.10)
-      mail (>= 2.0)
     pry (0.9.12.6)
       coderay (~> 1.0)
       method_source (~> 0.8)
@@ -73,7 +73,7 @@ DEPENDENCIES
   guard
   guard-bundler
   guard-rack
-  pony
+  mandrill-api
   rerun
   rubyzip (>= 1.0.0)
   sinatra

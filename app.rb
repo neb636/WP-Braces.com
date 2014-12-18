@@ -2,6 +2,7 @@
 $:.push File.expand_path('../', __FILE__)
 require 'fileutils'
 require 'lib/builder'
+require 'lib/mailer'
 require 'lib/questions'
 
 class BuilderRoutes < Sinatra::Base
@@ -22,8 +23,10 @@ class BuilderRoutes < Sinatra::Base
     erb :form_validate, locals: { error_message: '404' }
   end
 
+  # This is where the theme gets created and sent to user
   post '/basetheme' do
     begin
+
       set_variables
 
       set_base_theme_directory
@@ -46,9 +49,15 @@ class BuilderRoutes < Sinatra::Base
       # Return the content so it starts auto download
       content
 
-    # If there is an error send users to the error page
     rescue => exception
-      FileUtils.rm_rf($base_theme_directory)
+
+      # Mail the exception
+      Mailer.send_message({ error: exception })
+
+      # Remove the half created theme
+      FileUtils.rm_rf($base_theme_directory) if $base_theme_directory
+
+      # Send users to the error page
       erb :error
     end
   end

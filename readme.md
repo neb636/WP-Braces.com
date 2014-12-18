@@ -8,4 +8,4 @@ Sinatra app that runs <a href="http://wp-braces.com">wp-braces.com</a>
 
 'npm install'
 
-then type 'rerun' to start a local server
+then type ` $ rerun 'rackup' ` to start a local server
