@@ -11,10 +11,11 @@ var gulp = require('gulp'),
 	 mincss = require('gulp-minify-css');
 
 var js_footer = [
-		'public/js/jquery-2.1.1.min.js',
-		'public/js/plugins.js',
+		'public/js/vendor/jquery-2.1.1.min.js',
+		'public/js/vendor/plugins.js',
 		'public/js/beetle.js',
-		'public/js/parsley.js',
+		'public/js/vendor/parsley.js',
+		'public/js/vendor/angular.js',
 		'public/js/form.js'
 	]
 
@@ -24,7 +25,8 @@ var erb_files = [
 		'views/form_validate.erb',
 		'views/footer.erb',
 		'views/form.erb',
-		'views/index.erb'
+		'views/index.erb',
+		'views/custom_post_type.erb'
 	]
 
 var ignore_css = [
@@ -45,7 +47,11 @@ var ignore_css = [
 		'.csstransitions',
 		'.svg',
 		'.skrollr',
-		'.skrollr-desktop'
+		'.skrollr-desktop',
+		'.cpt-number',
+		'.cpt-number.yes',
+		'.compass.yes',
+		'.post-type-error.parsley-error'
 	]
 
 // Outputs an error through plumber plugin

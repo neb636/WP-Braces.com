@@ -101,7 +101,7 @@ header.fixed-header {
     display: none;
 }
 
-.compass.active {
+.compass.yes {
     display: block;
 }
 
@@ -5384,7 +5384,7 @@ footer {
 .cpt-number {
     display: none;
 
-    &.active {
+    &.yes {
         display: block;
     }
 }
@@ -5428,4 +5428,11 @@ footer {
     width: 100%;
 }
 
+.post-type-error {
+    display: none;
+
+    &.parsley-error {
+        display: block;
+    }
+}
 

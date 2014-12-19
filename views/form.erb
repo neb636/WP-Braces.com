@@ -1,4 +1,4 @@
-<section class="row section form-area greyish">
+<section class="row section form-area greyish" ng-app="wp-braces">
 	<div class="row-content ">
 		<div class="section-title"><h2>Build Theme</h2></div>
 		<div class="column full">
@@ -37,32 +37,17 @@
 					</div>
 				</div>
 
-				<!-- <div class="question">
-					<label>Will you need a custom post type for this theme?</label>
-					<div class="radio">
-						<input id="cpt-yes" type="radio" name="custom_post_types" value="Yes">Yes
-						<input type="radio" name="custom_post_types" value="No">No
-					</div>
-				</div>
-
-				<div id="cpt-number-wrapper" class="question cpt-number">
-					<label>How many Custom Post Types do you need?</label>
-					<div class="radio">
-						<input required id="cpt-number" class="name plain buffer" type="text" name="cpt_number" data-parsley-required="true" data-parsley-type="number">
-					</div>
-				</div>
-
-				<div id="cpt-name-wrapper"></div> -->
+				<%= erb :custom_post_type %>
 
 				<div class="question">
 					<label>Would you like to use SASS with this theme?</label>
 					<div class="radio">
-						<input required id="sass-yes" type="radio" name="sass" value="yes" data-parsley-required="true">Yes
-						<input required type="radio" name="sass" value="no" data-parsley-required="true">No
+						<input required id="sass-yes" type="radio" name="sass" value="yes" data-parsley-required="true" ng-model="sass">Yes
+						<input required type="radio" name="sass" value="no" data-parsley-required="true" ng-model="sass">No
 					</div>
 				</div>
 
-				<div id="compass" class="question compass">
+				<div id="compass" class="question compass" ng-class="sass">
 					<label>Would you like to use Compass?</label>
 					<div class="radio">
 						<input type="radio" name="compass" value="yes">Yes

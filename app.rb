@@ -74,8 +74,8 @@ class BuilderRoutes < Sinatra::Base
     @sass = params[:sass]
     @compass = params[:compass]
     @gulp = params[:gulp]
-    # @custom_post_types = params[:custom_post_types]
-    # @custom_post_types_number = params[:cpt_number]
+    @custom_post_types = params[:custom_post_types]
+    @custom_post_types_number = params[:cpt_number]
   end
 
   def set_base_theme_directory
