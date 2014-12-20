@@ -31,11 +31,13 @@ module Questions
   end
 
   # Sets up custom post support for theme
-  def custom_post_type_support(custom_post_types)
+  def custom_post_type_support(custom_post_types, custom_post_types_array)
     form_validate(custom_post_types)
 
+    custom_posts = CustomPosts.new
+
     Builder.keep_feature_if_yes('CUSTOM-POSTS', custom_post_types)
-    Builder.custom_post_types_create_if_yes(custom_post_types)
+    custom_posts.create(custom_post_types_array)
     Builder.remove_file_or_dir_if_no('extensions/custom-post-types', custom_post_types)
   end
 

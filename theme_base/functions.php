@@ -136,3 +136,9 @@ require get_template_directory() . '/inc/jetpack.php';
  * Load Widgets file.
  */
 require get_template_directory() . '/inc/widgets.php';
+{{{CUSTOM-POSTS}}}
+/**
+ * Custom post types
+ */
+{%= post_type_include %}
+{{{/CUSTOM-POSTS}}}

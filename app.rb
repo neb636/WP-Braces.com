@@ -4,6 +4,7 @@ require 'fileutils'
 require 'lib/builder'
 require 'lib/mailer'
 require 'lib/questions'
+require 'lib/custom_posts'
 
 class BuilderRoutes < Sinatra::Base
   set :public_folder, 'public'
@@ -75,7 +76,22 @@ class BuilderRoutes < Sinatra::Base
     @compass = params[:compass]
     @gulp = params[:gulp]
     @custom_post_types = params[:custom_post_types]
-    @custom_post_types_number = params[:cpt_number]
+    @custom_post_types_number = params[:cpt_number].to_i
+
+    create_post_type_array
+  end
+
+  def create_post_type_array
+    @post_type_array = []
+
+    if @custom_post_types == 'yes'
+      @custom_post_types_number.times do |index|
+        index += 1
+        @post_type_array.push(params["cpt_name_#{index}"])
+      end
+    end
+
+    puts @post_type_array.inspect
   end
 
   def set_base_theme_directory
@@ -95,6 +111,7 @@ class BuilderRoutes < Sinatra::Base
     Questions.sass_support(@sass)
     Questions.compass_support(@sass, @compass)
     Questions.gulp_support(@gulp)
+    Questions.custom_post_type_support(@custom_post_types, @post_type_array)
     Questions.theme_name_write(@theme_name)
     Questions.author_name_write(@author_name)
     Questions.author_url_write(@author_url)

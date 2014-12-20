@@ -52,10 +52,15 @@ module Builder
 
       next if file_name =~ /node_modules/i
 
-      text = File.read(file_name)
-      replace = text.gsub(find_replace_var.fetch(:original), find_replace_var.fetch(:replacement))
-      File.open(file_name, 'w') { |file| file.puts replace }
+      write_replace_file(find_replace_var, file_name)
     end
+  end
+
+  # Does a find and replace on a specific file
+  def write_replace_file(find_replace_var, file_name)
+    text = File.read(file_name)
+    replace = text.gsub(find_replace_var.fetch(:original), find_replace_var.fetch(:replacement))
+    File.open(file_name, 'w') { |file| file.puts replace }
   end
 
   # Deletes a file or directory depending on answer.
@@ -102,42 +107,12 @@ module Builder
     end
   end
 
-  # Creates custom post types if needed by asking how many and then asking for a name. If no
-  # custom post type is needed the custom post type folder is deleted. This method needs lots of refactoring.
-  #
-  # TODO: Make this not specific to CPT's but to files that can be created more than once
-  def custom_post_types_create(custom_post_types_array)
-
-    original_file = $base_theme_directory + 'extensions/custom-post-types/custom-post-type.php'
-    files_array = Array.new
-    index = 0
-
-    custom_post_types_array.each do |cpt_name|
-      new_file = $base_theme_directory + 'extensions/custom-post-types/' + answer.gsub(' ', '-') + '-post-type-class.php'
-
-      # Push files into files array for includes later
-      FileUtils.cp(original_file, new_file)
-      files_array.push(new_file)
-
-      # Find and replace variables
-      find_replace_var = { replacement: answer, original: '{%= post_type_name %}' }
-      find_replace_var_capitalize = { replacement: answer.capitalize, original: '{%= post_type_name_capitalize %}' }
-
-      write_replace(find_replace_var, original_file)
-      write_replace(find_replace_var_capitalize, original_file)
-    end
-
-    # Delete original file and add includes into functions.php
-    File.delete(original_file)
-    file_includes(files_array, '{%= post_type_include %}')
-  end
-
   private
 
   # Remove tags from the outside of
   def remove_outer_tags(tag_open, tag_close)
-    delete_open = { original: tag_open, replacement: ''}
-    delete_close = { original: tag_close, replacement: ''}
+    delete_open = { original: tag_open, replacement: '' }
+    delete_close = { original: tag_close, replacement: '' }
     write_replace(delete_open)
     write_replace(delete_close)
   end
@@ -146,7 +121,7 @@ module Builder
   def remove_tags_and_inner_content(tag_open, tag_close)
     between = tag_open + '[\s\S]*?' + tag_close
     reg_between = Regexp.new(between, Regexp::IGNORECASE);
-    find_replace_var = { original: reg_between, replacement: ''}
+    find_replace_var = { original: reg_between, replacement: '' }
     write_replace(find_replace_var)
   end
 
