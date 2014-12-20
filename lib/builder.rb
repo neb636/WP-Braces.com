@@ -36,7 +36,7 @@ module Builder
   end
 
   # Loop through every file and perform search and replace
-  def write_replace(find_replace_var, skip = 'none')
+  def write_replace_global(find_replace_var, skip = 'none')
 
     # First set the file locations only if the correct extension
     files = Dir.glob("#{$base_theme_directory}/**/**.{php,css,txt,scss,js,json}")
@@ -75,7 +75,7 @@ module Builder
     end
   end
 
-  # Builds file includes string and calls write_replace method
+  # Builds file includes string and calls write_replace method in functions.php
   def file_includes(files_array, tag_to_replace)
     tag_replacement = ''
 
@@ -92,8 +92,9 @@ module Builder
     end
 
     # Put includes into functions.php
+    functions_file = "{$base_theme_directory}/functions.php"
     find_replace_var = { replacement: tag_replacement, original: tag_to_replace }
-    write_replace(find_replace_var)
+    write_replace_file(find_replace_var, functions_file)
   end
 
   # Zips the files up
@@ -113,8 +114,8 @@ module Builder
   def remove_outer_tags(tag_open, tag_close)
     delete_open = { original: tag_open, replacement: '' }
     delete_close = { original: tag_close, replacement: '' }
-    write_replace(delete_open)
-    write_replace(delete_close)
+    write_replace_global(delete_open)
+    write_replace_global(delete_close)
   end
 
   # Remove tags and the inner content
@@ -122,7 +123,7 @@ module Builder
     between = tag_open + '[\s\S]*?' + tag_close
     reg_between = Regexp.new(between, Regexp::IGNORECASE);
     find_replace_var = { original: reg_between, replacement: '' }
-    write_replace(find_replace_var)
+    write_replace_global(find_replace_var)
   end
 
   # Sets tags to be used in tag replace delete methods

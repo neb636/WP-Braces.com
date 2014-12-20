@@ -60,8 +60,8 @@ module Questions
     find_replace_var = { replacement: prefix, original: '{%= prefix %}'}
     find_replace_var_capitalize = { replacement: prefix.capitalize, original: '{%= prefix_capitalize %}' } # for classes
 
-    Builder.write_replace(find_replace_var)
-    Builder.write_replace(find_replace_var_capitalize)
+    Builder.write_replace_global(find_replace_var)
+    Builder.write_replace_global(find_replace_var_capitalize)
   end
 
   # Sets up theme name for theme
@@ -70,21 +70,21 @@ module Questions
     find_replace_var = { replacement: theme_name, original: '{%= title %}' }
     find_replace_var_capitalize = { replacement: theme_name.capitalize, original: '{%= title_capitalize %}' }
 
-    Builder.write_replace(find_replace_var)
-    Builder.write_replace(find_replace_var_capitalize)
+    Builder.write_replace_global(find_replace_var)
+    Builder.write_replace_global(find_replace_var_capitalize)
   end
 
   # Sets up author name for theme
   def author_name_write(author_name)
     form_validate(author_name)
     find_replace_var = { replacement: author_name, original: '{%= author %}'}
-    Builder.write_replace(find_replace_var)
+    Builder.write_replace_global(find_replace_var)
   end
 
   # Sets up theme description for theme
   def theme_description_write(description)
     find_replace_var = { replacement: description, original: '{%= description %}'}
-    Builder.write_replace(find_replace_var)
+    Builder.write_replace_global(find_replace_var)
   end
 
   # Sets up theme uri and has a custom error message
@@ -93,7 +93,7 @@ module Questions
     form_validate(theme_url, URL_REGEX)
 
     find_replace_var = { replacement: theme_url, original: '{%= theme_uri %}'}
-    Builder.write_replace(find_replace_var)
+    Builder.write_replace_global(find_replace_var)
   end
 
   # Sets up author uri and has a custom error message
@@ -102,7 +102,7 @@ module Questions
     form_validate(author_url, URL_REGEX)
 
     find_replace_var = { replacement: author_url, original: '{%= author_uri %}'}
-    Builder.write_replace(find_replace_var)
+    Builder.write_replace_global(find_replace_var)
   end
 
   # Method used to validate form server side and send to error page if does not match.
