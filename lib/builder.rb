@@ -83,9 +83,9 @@ module Builder
 
       # Move to new line if not the first file
       if index == 0
-        file_place = "require get_template_directory() . '/" + file + "';"
+        file_place = "require get_template_directory() . '/#{file}';"
       else
-        file_place = "\nrequire get_template_directory() . '/" + file + "';"
+        file_place = "\nrequire get_template_directory() . '/#{file}';"
       end
 
       tag_replacement = tag_replacement + file_place
