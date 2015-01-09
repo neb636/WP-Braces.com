@@ -1,6 +1,6 @@
 var wp_braces = angular.module('wp-braces', []);
 
-wp_braces.controller('PostTypesCtrl', function ($scope) {
+wp_braces.controller('PostTypesCtrl', function () {
 	var self = this;
 
 	// Asks user how many post types needed. If amount is more than 15 display an
