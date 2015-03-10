@@ -1,23 +1,22 @@
 // Plugins
-var gulp = require('gulp'),
-	 watch = require('gulp-watch'),
-	 autoprefixer = require('gulp-autoprefixer'),
-	 concat = require('gulp-concat'),
-	 sass = require('gulp-ruby-sass'),
-	 uglify = require('gulp-uglify'),
-	 uncss = require('gulp-uncss'),
-	 plumber = require('gulp-plumber'),
-	 gutil = require('gulp-util'),
-	 mincss = require('gulp-minify-css');
+var gulp = require('gulp');
+var watch = require('gulp-watch');
+var autoprefixer = require('gulp-autoprefixer');
+var concat = require('gulp-concat');
+var sass = require('gulp-ruby-sass');
+var uglify = require('gulp-uglify');
+var uncss = require('gulp-uncss');
+var plumber = require('gulp-plumber');
+var gutil = require('gulp-util');
+var mincss = require('gulp-minify-css');
 
 var js_footer = [
 		'public/js/vendor/jquery-2.1.1.min.js',
 		'public/js/vendor/plugins.js',
 		'public/js/beetle.js',
 		'public/js/vendor/parsley.js',
-		'public/js/vendor/angular.js',
 		'public/js/form.js'
-	]
+	];
 
 var erb_files = [
 		'views/header.erb',
@@ -27,7 +26,7 @@ var erb_files = [
 		'views/form.erb',
 		'views/index.erb',
 		'views/custom_post_type.erb'
-	]
+	];
 
 var ignore_css = [
 		/.fixed-header/,
@@ -52,7 +51,7 @@ var ignore_css = [
 		'.cpt-number.yes',
 		'.compass.yes',
 		'.post-type-error.parsley-error'
-	]
+	];
 
 // Outputs an error through plumber plugin
 var onError = function (err) {

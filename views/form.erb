@@ -19,50 +19,6 @@
 					<input required class="name plain buffer" type="text" name="author_url" data-parsley-required="true" data-parsley-type="url">
 				</div>
 
-				<div class="question">
-					<label>What is the sites URL?</label>
-					<input required class="name plain buffer" type="text" name="theme_url" data-parsley-required="true" data-parsley-type="url">
-				</div>
-
-				<div class="question full">
-					<label>Please list your themes description</label>
-					<textarea class="plain" name="description"></textarea>
-				</div>
-
-				<div class="question">
-					<label>Will this theme need language support?</label>
-					<div class="radio">
-						<input required type="radio" name="language_support" value="yes" data-parsley-required="true">Yes
-						<input required type="radio" name="language_support" value="no" data-parsley-required="true">No
-					</div>
-				</div>
-
-				<div class="question">
-					<label>Would you like to use Gulp with this theme?</label>
-					<div class="radio">
-						<input required type="radio" name="gulp" value="yes" data-parsley-required="true">Yes
-						<input required type="radio" name="gulp" value="no" data-parsley-required="true">No
-					</div>
-				</div>
-
-				<%= erb :custom_post_type %>
-
-				<div class="question">
-					<label>Would you like to use SASS with this theme?</label>
-					<div class="radio">
-						<input required id="sass-yes" type="radio" name="sass" value="yes" data-parsley-required="true" ng-model="sass">Yes
-						<input required type="radio" name="sass" value="no" data-parsley-required="true" ng-model="sass">No
-					</div>
-				</div>
-
-				<div id="compass" class="question compass" ng-class="sass">
-					<label>Would you like to use Compass?</label>
-					<div class="radio">
-						<input type="radio" name="compass" value="yes">Yes
-						<input type="radio" name="compass" value="no">No
-					</div>
-				</div>
-
 				<input id="send" class="plain button red" type="submit" value="Download Now" onclick="javascript:$('#braces-form').parsley( 'validate' );">
 
 			</form>
