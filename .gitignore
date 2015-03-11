@@ -1,7 +1,7 @@
 node_modules
 .sass-cache
 .DS_Store
-public/temp
+public/temp/*
 .idea
 .bundle
 client_secrets.yml

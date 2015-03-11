@@ -2,8 +2,6 @@
 
 Sinatra app that runs <a href="http://wp-braces.com">wp-braces.com</a>
 
-Uses Angular for data binding with the forms
-
 ### How do I get started?
 
 'bundle install'

@@ -8,8 +8,6 @@ require 'zip'
 class BuilderRoutes < Sinatra::Base
   set :public_folder, 'public'
 
-  @error_message = ''
-
   # Main Route
   get '/' do
     erb :index
