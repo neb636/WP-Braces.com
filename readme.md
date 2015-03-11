@@ -2,6 +2,15 @@
 
 Sinatra app that runs <a href="http://wp-braces.com">wp-braces.com</a>
 
+### How the theme building takes place
+
+- Users fill out form fields and submit form
+- Takes the braces theme and copies it to a temp directory
+- Does a string replace with the fields the user fills out
+- Zips the temp folder
+- Deletes the temp folder and zip file
+- Returns the zipped theme folder for the user to download
+
 ### How do I get started?
 
 'bundle install'
@@ -9,3 +18,5 @@ Sinatra app that runs <a href="http://wp-braces.com">wp-braces.com</a>
 'npm install'
 
 then type ` $ rerun 'rackup' ` to start a local server
+
+When working on styles or javascript type gulp to recompile

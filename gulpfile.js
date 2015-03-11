@@ -14,18 +14,15 @@ var js_footer = [
 		'public/js/vendor/jquery-2.1.1.min.js',
 		'public/js/vendor/plugins.js',
 		'public/js/beetle.js',
-		'public/js/vendor/parsley.js',
-		'public/js/form.js'
+		'public/js/vendor/parsley.js'
 	];
 
 var erb_files = [
 		'views/header.erb',
 		'views/error.erb',
-		'views/form_validate.erb',
 		'views/footer.erb',
 		'views/form.erb',
-		'views/index.erb',
-		'views/custom_post_type.erb'
+		'views/index.erb'
 	];
 
 var ignore_css = [
