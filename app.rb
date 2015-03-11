@@ -1,7 +1,8 @@
 # app.rb
 $:.push File.expand_path('../', __FILE__)
 require 'fileutils'
-require 'lib/mailer'
+require 'mandrill'
+require 'yaml'
 require 'zip'
 
 class BuilderRoutes < Sinatra::Base
@@ -9,12 +10,14 @@ class BuilderRoutes < Sinatra::Base
 
   @error_message = ''
 
+  # Main Route
   get '/' do
     erb :index
   end
 
   get '/validation_error' do
-    erb :form_validate, locals: { error_message: @error_message }
+    error_message = 'Looks like you forgot a required field. Please go back and try again.'
+    erb :form_validate, locals: { error_message: error_message }
   end
 
   not_found do
@@ -54,13 +57,12 @@ class BuilderRoutes < Sinatra::Base
       # Mail the exception
       Mailer.send_message({ error: exception })
 
-      puts exception
-
       # Remove the half created theme
       FileUtils.rm_rf(@base_theme_directory) if @base_theme_directory
 
       # Send users to the error page
-      erb :error
+      error_message = 'There was an error. An email has been sent to the site owner to make sure he fixes the bug.'
+      erb :error, locals: { error_message: error_message }
     end
   end
 
@@ -92,7 +94,6 @@ class BuilderRoutes < Sinatra::Base
   # Method used to validate form server side and send to error page if field is empty.
   def form_validate(form_input)
     if form_input.nil?
-      @error_message = 'Looks like you forgot to fill out a required field. Please go back and try again.'
       FileUtils.rm_rf(@base_theme_directory)
       redirect '/validation_error'
     end
@@ -120,5 +121,45 @@ class BuilderRoutes < Sinatra::Base
       replace = text.gsub(find_replace_var.fetch(:original), find_replace_var.fetch(:replacement))
       File.open(file_name, 'w') { |file| file.puts replace }
     end
+  end
+end
+
+# Uses the Mandrill Rest Api so I do not have to mess with SMTP.
+module Mailer
+  extend self
+
+  # Sends email to mandrill and then exits
+  def send_message(message)
+    mandrill = Mandrill::API.new(get_api_key)
+
+    email = {
+      subject: 'Exception generated during theme creation',
+      from_name: 'WP-Braces Admin',
+      text: html_template(message),
+      to: [
+          {
+          email: 'neb636@gmail.com',
+          name: 'Nick'
+        }
+      ],
+      html: html_template(message),
+      from_email: "Admin@wp-braces.com"
+    }
+
+    mandrill.messages.send(email)
+  end
+
+  private
+
+  def html_template(message)
+    <<-EOT
+      <h2>There was a exception during theme creation</h2>
+      <p style="font-size: 14px;">The exception message is <em>#{message[:error]}.</em>
+    EOT
+  end
+
+  def get_api_key
+    client_secrets = YAML.load_file('client_secrets.yml')
+    client_secrets['mandrill_api_key']
   end
 end
