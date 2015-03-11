@@ -15,12 +15,12 @@ class BuilderRoutes < Sinatra::Base
 
   get '/validation_error' do
     error_message = 'Looks like you forgot a required field. Please go back and try again.'
-    erb :form_validate, locals: { error_message: error_message }
+    erb :error, locals: { error_message: error_message }
   end
 
   not_found do
     status 404
-    erb :form_validate, locals: { error_message: '404' }
+    erb :error, locals: { error_message: '404' }
   end
 
   # This is where the theme gets created and sent to user
@@ -140,7 +140,8 @@ module Mailer
           name: 'Nick'
         }
       ],
-      html: html_template(message),
+      html: "<h2>There was a exception during theme creation</h2>
+      <p style='font-size: 14px;'>The exception message is <em>#{message}.</em></p>",
       from_email: "Admin@wp-braces.com"
     }
 
@@ -148,13 +149,6 @@ module Mailer
   end
 
   private
-
-  def html_template(message)
-    <<-EOT
-      <h2>There was a exception during theme creation</h2>
-      <p style="font-size: 14px;">The exception message is <em>#{message[:error]}.</em>
-    EOT
-  end
 
   def get_api_key
     client_secrets = YAML.load_file('client_secrets.yml')
