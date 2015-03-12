@@ -127,8 +127,7 @@ class BuilderRoutes < Sinatra::Base
           name: 'Nick'
         }
       ],
-      html: "<h2>There was a exception during theme creation</h2>
-      <p style='font-size: 14px;'>The exception message is <em>#{message}.</em></p>",
+      html: "<p style='font-size: 14px;'>The exception message generated is <em>#{message}.</em></p>",
       from_email: "Admin@wp-braces.com"
     }
 
