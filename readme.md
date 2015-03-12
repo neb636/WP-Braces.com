@@ -4,7 +4,40 @@ Sinatra app that runs <a href="http://wp-braces.com">wp-braces.com</a>
 
 All of the logic lies in app.rb
 
-The @ symbol indicates that a variable is a instance variable
+### Variables in Ruby
+
+```ruby
+# Local Variable
+foo = 'bar'
+
+# Instance Variable
+@foo = 'bar'
+
+# Class Variable
+@@foo = 'bar'
+
+# Global Variable
+$foo = 'bar'
+
+# Constant
+FOO = 'bar'
+```
+
+### Routes
+
+```ruby
+# Fetches the index.erb template
+erb :index
+
+# Gets wp-braces.com/ route and sends to index template
+get '/' do
+  erb :index
+end
+
+# Fetches the error.erb template and give variable error_message that
+# can be used inside the template
+erb :error, locals: { error_message: '404' }
+```
 
 ### How the theme building takes place
 

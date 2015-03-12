@@ -4,7 +4,7 @@ require 'mandrill'
 require 'yaml'
 require 'zip'
 
-class BuilderRoutes < Sinatra::Base
+class BracesRoutes < Sinatra::Base
   set :public_folder, 'public'
 
   # Main Route
