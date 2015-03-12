@@ -50,10 +50,16 @@ erb :error, locals: { error_message: '404' }
 
 ### How do I get started?
 
-'bundle install'
+```
+# Install Ruby dependencies
+$ bundle install
 
-'npm install'
+# Install Node dependencies(for development only)
+$ npm install
 
-then type ` $ rerun 'rackup' ` to start a local server
+# Starts a local server
+$ rerun 'rackup' ` to start a local server
 
-When working on styles or javascript type gulp to recompile
+# When working on styles or javascript to recompile
+$ gulp
+```
