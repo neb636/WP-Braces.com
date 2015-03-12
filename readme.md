@@ -58,7 +58,7 @@ $ bundle install
 $ npm install
 
 # Starts a local server
-$ rerun 'rackup' ` to start a local server
+$ rerun 'rackup'
 
 # When working on styles or javascript to recompile
 $ gulp
