@@ -1,10 +1,21 @@
-## WordPress Custom Base Theme Generator
+## Braces Custom Base Theme Generator
 
 Sinatra app that runs <a href="http://wp-braces.com">wp-braces.com</a>
 
+### How the theme building takes place
+
+- Users fill out form fields and submit form
+- Takes the braces theme and copies it to a temp directory
+- Does a string replace with the fields the user fills out
+- Zips the temp folder
+- Deletes the temp folder and zip file
+- Returns the zipped theme folder for the user to download
+
+### Working on the site
+
 All of the logic lies in app.rb
 
-### Variables in Ruby
+#### Variables in Ruby
 
 ```ruby
 # Local Variable
@@ -23,7 +34,7 @@ $foo = 'bar'
 FOO = 'bar'
 ```
 
-### Routes
+#### Routes
 
 ```ruby
 # Fetches the index.erb template
@@ -39,16 +50,7 @@ end
 erb :error, locals: { error_message: '404' }
 ```
 
-### How the theme building takes place
-
-- Users fill out form fields and submit form
-- Takes the braces theme and copies it to a temp directory
-- Does a string replace with the fields the user fills out
-- Zips the temp folder
-- Deletes the temp folder and zip file
-- Returns the zipped theme folder for the user to download
-
-### How do I get started?
+#### How do I get started?
 
 ```bash
 # Install Ruby dependencies
