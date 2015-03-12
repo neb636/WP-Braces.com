@@ -1,5 +1,4 @@
 # app.rb
-$:.push File.expand_path('../', __FILE__)
 require 'fileutils'
 require 'mandrill'
 require 'yaml'
@@ -23,11 +22,11 @@ class BuilderRoutes < Sinatra::Base
     erb :error, locals: { error_message: '404' }
   end
 
-  # This is where the theme gets created and sent to user
+  # Route where theme gets created and sent to user
   post '/basetheme' do
     begin
 
-      set_base_theme_directory
+      set_temp_directory
 
       # Copy files to temp folder
       FileUtils.copy_entry('braces_theme', @base_theme_directory)
@@ -53,7 +52,7 @@ class BuilderRoutes < Sinatra::Base
     rescue => exception
 
       # Mail the exception
-      Mailer.send_message({ error: exception })
+      send_email({ error: exception })
 
       # Remove the half created theme
       FileUtils.rm_rf(@base_theme_directory) if @base_theme_directory
@@ -78,14 +77,30 @@ class BuilderRoutes < Sinatra::Base
   end
 
   # Check to see if a theme is already being written
-  def set_base_theme_directory
+  def set_temp_directory
     @base_theme_directory = 'public/temp/theme_1/'
     @temp_number = 1
 
-    # Change value of $base_theme_directory until the folder name does not appear
+    # Change value of @base_theme_directory until the folder name does not appear
     until !File.exist?(@base_theme_directory)
       @temp_number = @temp_number + 1
       @base_theme_directory = "public/temp/theme_#{@temp_number.to_s}/"
+    end
+  end
+
+  # Loop through every file and perform search and replace
+  def write_replace(find_replace_var)
+
+    # Validate user input
+    form_validate(find_replace_var.fetch(:original))
+
+    # First set the file locations only if the correct extension
+    files = Dir.glob("#{@base_theme_directory}/**/**.{php,css,txt,scss,js,json}")
+
+    files.each do |file_name|
+      text = File.read(file_name)
+      replace = text.gsub(find_replace_var.fetch(:original), find_replace_var.fetch(:replacement))
+      File.open(file_name, 'w') { |file| file.puts replace }
     end
   end
 
@@ -97,36 +112,10 @@ class BuilderRoutes < Sinatra::Base
     end
   end
 
-  # Loop through every file and perform search and replace
-  def write_replace(find_replace_var, skip = 'none')
-
-    # Validate user input
-    form_validate(find_replace_var.fetch(:original))
-
-    # First set the file locations only if the correct extension
-    files = Dir.glob("#{@base_theme_directory}/**/**.{php,css,txt,scss,js,json}")
-
-    files.each do |file_name|
-
-      # Skip if file passed into method
-      if skip != 'none'
-        next if file_name == skip
-      end
-
-      text = File.read(file_name)
-      replace = text.gsub(find_replace_var.fetch(:original), find_replace_var.fetch(:replacement))
-      File.open(file_name, 'w') { |file| file.puts replace }
-    end
-  end
-end
-
-# Uses the Mandrill Rest Api so I do not have to mess with SMTP.
-module Mailer
-  extend self
-
-  # Sends email to mandrill and then exits
-  def send_message(message)
-    mandrill = Mandrill::API.new(get_api_key)
+  # Sends email using mandrill api
+  def send_email(message)
+    client_secrets = YAML.load_file('client_secrets.yml')
+    mandrill = Mandrill::API.new(client_secrets['mandrill_api_key'])
 
     email = {
       subject: 'Exception generated during theme creation',
@@ -144,12 +133,5 @@ module Mailer
     }
 
     mandrill.messages.send(email)
-  end
-
-  private
-
-  def get_api_key
-    client_secrets = YAML.load_file('client_secrets.yml')
-    client_secrets['mandrill_api_key']
   end
 end

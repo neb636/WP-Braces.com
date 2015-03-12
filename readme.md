@@ -2,6 +2,10 @@
 
 Sinatra app that runs <a href="http://wp-braces.com">wp-braces.com</a>
 
+All of the logic lies in app.rb
+
+The @ symbol indicates that a variable is a instance variable
+
 ### How the theme building takes place
 
 - Users fill out form fields and submit form
