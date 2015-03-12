@@ -82,7 +82,7 @@ class BuilderRoutes < Sinatra::Base
     @base_theme_directory = 'public/temp/theme_1/'
     @temp_number = 1
 
-    # Change value of $base_theme_directory until the file name does not appear
+    # Change value of $base_theme_directory until the folder name does not appear
     until !File.exist?(@base_theme_directory)
       @temp_number = @temp_number + 1
       @base_theme_directory = "public/temp/theme_#{@temp_number.to_s}/"
