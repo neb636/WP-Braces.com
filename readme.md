@@ -50,7 +50,7 @@ erb :error, locals: { error_message: '404' }
 
 ### How do I get started?
 
-```
+```bash
 # Install Ruby dependencies
 $ bundle install
 
